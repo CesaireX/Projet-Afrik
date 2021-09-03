@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\appel;
 use App\Http\Controllers\Controller;
 use App\Models\objet;
+use App\Models\lot;
 
 class objetController extends Controller
 {
@@ -35,9 +36,14 @@ class objetController extends Controller
       return view('Objet/listeobjet',compact('listeobjet','data','dossier','message'));
     }
 
-    public function create()
+    public function destroy($id)
     {
-
+        $objet=objet::find($id);
+        $objetencours=objet::where('id',$id)->first();
+        $id2=$objetencours->appel->id;
+        //dd($id2);
+        $objet->delete ();
+        return redirect()->route('suppressionA',[$id2])->with('message','supprimer');
     }
 
     public function show($id)
@@ -49,4 +55,22 @@ class objetController extends Controller
     $appelcorrespondant=$objetcorrespondant->appel;
     return view('Lot.lotcreer',compact('lot','appelcorrespondant','objetcorrespondant'));
     }
+
+    public function showsuppressB($id,lot $lot)
+    {
+    $objet= objet::where('id',$id)->first();
+    $lot= $objet->lot;
+    //dd($objet);
+    $objetcorrespondant=objet::where('id',$id)->first();
+    $appelcorrespondant=$objetcorrespondant->appel;
+    $suppression='ok';
+    return view('Lot.lotcreer',compact('lot','appelcorrespondant','objetcorrespondant','suppression'));
+    }
+
+    public function listeobjet()
+    {
+        $objet=objet::all();
+        return view('Liste.objets',compact('objet'));
+    }
+
 }

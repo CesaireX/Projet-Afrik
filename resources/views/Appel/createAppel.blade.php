@@ -38,7 +38,7 @@
             </thead>
             <tbody>
               <tr>
-                <td style="width: 0px;"><input name="Duree_Validite" type="text" required></td>
+                <td style="width: 0px;"><input name="Duree_Validite" type="text" required pattern="[0-9]{1,5}" min="1"> <span class="validity"><p style="color: white;">NB: La durée doit etre superieure a 0 et ne doit pas depasser 5 chiffre</p> </span></td>
                 <td style="width: 0px;"><input name="Date_Publication" type="date" required></td>
                 <td style="width: 190px;"><button name="envoie" type="submit" class="btn btn-primary" > Ajouter </button></td>
 

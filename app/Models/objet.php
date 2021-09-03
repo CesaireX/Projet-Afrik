@@ -27,5 +27,10 @@ class objet extends Model
         return $this->hasMany('App\Models\lot');
     }
 
+    public function lot2()
+    {
+        return $this->belongsTo('App\Models\lot');
+    }
+
 
 }

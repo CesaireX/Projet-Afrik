@@ -25,5 +25,10 @@ class appel extends Model
         return $this->hasMany('App\Models\objet');
     }
 
+    public function objet2()
+    {
+        return $this->belongsTo('App\Models\objet');
+    }
+
 }
 

@@ -35,7 +35,7 @@
             </thead>
             <tbody>
               <tr>
-                <td style="width: 50px;"><input name="lot" type="number">  <p style="display: inline;">notice: saissisez juste le numero du lot</p></td>
+                <td style="width: 50px;"><input name="lot" type="number" required min="1" max="15">  <p style="display: inline;">notice: saissisez juste le numero du lot</p></td>
                 <td style="width: 190px;"><button name="envoie" type="submit" class="btn btn-primary" > Ajouter </button></td>
               </tr>
             </tbody>

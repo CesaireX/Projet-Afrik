@@ -22,7 +22,7 @@
 
  <h2 style="text-align: center">Les Cautions generées pour le lot N-{{$data->lot}}</h2>
  <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('objet.show',[$objet->id]) }}"> Retour </a>
- <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('caution.creation',[$data->id]) }}"> Creer nouvelle caution </a>
+ <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('caution.creation',[$data->id,$date,$duree]) }}"> Creer nouvelle caution </a>
 
 
 <br>
@@ -49,7 +49,16 @@
         <td>{{$value->Montant}}</td>
         <td>{{$value->Date_Soumission}}</td>
         <td>{{$value->Date_effet}}</td>
-        <td>{{$value->Duree_Validite}} jours</td>
+        <td style="width: 10px;">
+            @if($value->Status==NULL)
+
+
+{{$value->Duree_Validite}}  jours
+
+             @else
+             0 jours
+             @endif
+</td>
 
         <td>
 
@@ -61,14 +70,17 @@
 
         </td>
         <td>
-            <form action="#" method="POST">
+            <form id="delete-post-form" action="{{ route('caution.destroy',[$value->id]) }}" method="POST">
 
                 <a class="btn btn-info" href="{{route('caution.verifier',[$value->Date_effet,$value->Duree_Validite,$value->id]) }}">Details</a>
                 <a class="btn btn-primary" href="#">Modifier</a>
 
                 @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                <input name="_method" type="hidden" value="DELETE">
+
+                <button style="width: 100px;" type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Supprimer</button>
+
             </form>
         </td>
     </tr>
@@ -82,12 +94,52 @@
     <tr>
         <th style="width: 50px;text-align: center">Liste des Cautions</th>
     </tr>
-    <tr><td><h3 style="text-align: center">Aucue caution disponible pour ce lot</h3></td></tr>
+    <tr><td><h3 style="text-align: center">Aucune caution disponible pour ce lot</h3></td></tr>
 </table>
 
 
 @endif
+<script type="text/javascript">
 
+
+
+    $('.show_confirm').click(function(event) {
+
+         var form =  $(this).closest("form");
+
+         var name = $(this).data("name");
+
+         event.preventDefault();
+
+         swal({
+
+             title: `Etes vous sur de vouloir supprimer cette caution ?`,
+
+             text: "Si jamais vous confirmez vous le perdrer pour toujours",
+
+             icon: "warning",
+
+             buttons: true,
+
+             dangerMode: true,
+
+         })
+
+         .then((willDelete) => {
+
+           if (willDelete) {
+
+             form.submit();
+
+           }
+
+         });
+
+     });
+
+
+
+</script>
 @endsection
 
 @extends('layouts.foot')

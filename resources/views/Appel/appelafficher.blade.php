@@ -44,18 +44,62 @@
              @endif
         </td>
         <td>
-            <form action="#" method="POST">
+            <form name="form" action="{{route('appel.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('objet.lister',[$value->id]) }}">Objet</a>
                 <a class="btn btn-primary" href="#">Modifier</a>
                 @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                <input name="_method" type="hidden" value="DELETE">
+
+                <button style="width: 100px;" type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Suprimer</button>
+
+
             </form>
         </td>
     </tr>
     @endforeach
 </table>
+<script type="text/javascript">
 
+
+
+    $('.show_confirm').click(function(event) {
+
+         var form =  $(this).closest("form");
+
+         var name = $(this).data("name");
+
+         event.preventDefault();
+
+         swal({
+
+             title: `Etes vous sur de vouloir supprimer cet Appel?`,
+
+             text: "Si jamais vous confirmez vous le perdrer pour toujours",
+
+             icon: "warning",
+
+             buttons: true,
+
+             dangerMode: true,
+
+         })
+
+         .then((willDelete) => {
+
+           if (willDelete) {
+
+             form.submit();
+
+           }
+
+         });
+
+     });
+
+
+
+</script>
 @endsection
 @extends('layouts.foot')

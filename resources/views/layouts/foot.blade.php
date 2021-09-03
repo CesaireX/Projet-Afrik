@@ -1,5 +1,5 @@
-  
-  
+
+
   </div>
 </body>
 
@@ -30,6 +30,7 @@
 <!-- jQuery Mapael -->
 <script src="{{ asset('access') }}/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="{{ asset('access') }}/plugins/raphael/raphael.min.js"></script>
+<script src="{{ asset('access') }}/js/Chart.min.js"></script>
 <script src="{{ asset('access') }}/plugins/jquery-mapael/jquery.mapael.min.js"></script>
 <script src="{{ asset('access') }}/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->

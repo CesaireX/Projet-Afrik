@@ -10,7 +10,7 @@ class dossier extends Model
     use HasFactory;
 
     protected $fillable = [
-         'NomDossier'
+         'NomDossier',
     ];
 /**
  * Get all of the comments for the dossier
@@ -21,5 +21,12 @@ public function appel()
 {
     return $this->hasMany('App\Models\appel');
 }
+
+
+
+   public function appel2()
+   {
+       return $this->belongsTo('App\Models\appel');
+   }
 
 }

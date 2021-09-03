@@ -24,4 +24,9 @@ class lot extends Model
     {
         return $this->hasMany('App\Models\caution');
     }
+
+    public function caution2()
+    {
+        return $this->belongsTo('App\Models\caution');
+    }
 }

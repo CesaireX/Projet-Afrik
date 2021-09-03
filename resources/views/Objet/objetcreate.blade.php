@@ -34,7 +34,7 @@
             </thead>
             <tbody>
               <tr>
-                <td style="width: 0px;"><textarea name="titre" id="" cols="40" rows="5"></textarea></td>
+                <td style="width: 0px;"><textarea name="titre" id="" cols="40" rows="5" required></textarea></td>
                 <td style="width: 190px;"><button style="margin-left: 150px;margin-top: 40px;" name="envoie" type="submit" class="btn btn-primary" > Ajouter </button></td>
               </tr>
             </tbody>

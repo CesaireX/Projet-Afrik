@@ -1704,7 +1704,7 @@ pre code {
 
 .table-bordered th,
 .table-bordered td {
-  border: 1px solid #2a2b2c;
+  border: 1px solid #c7ccd1;
 }
 
 .table-bordered thead th,
@@ -4767,9 +4767,9 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: rgb(48, 17, 17);
   background-clip: border-box;
-  border: 0 solid rgba(0, 0, 0, 0.125);
+  border: 0 solid rgba(207, 197, 197, 0.125);
   border-radius: 0.25rem;
 }
 

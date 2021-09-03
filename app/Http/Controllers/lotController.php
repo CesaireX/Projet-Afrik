@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\lot;
+use App\Models\objet;
 use App\Http\Controllers\Controller;
+use App\Models\caution;
 
 class lotController extends Controller
 {
@@ -38,6 +40,38 @@ class lotController extends Controller
         //dd($caution);
         $lotcorrespondant=lot::where('id',$id)->first();
         $objetcorrespondant=$lotcorrespondant->objet;
-        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant'));
+        $date=$lot->objet->appel->Date_Publication;
+        $duree=$lot->objet->appel->Duree_Validite;
+        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','duree'));
     }
+
+    public function showsuppressC($id,caution $caution)
+    {
+        $lot= lot::where('id',$id)->first();
+        $caution= $lot->caution;
+        //dd($caution);
+        $lotcorrespondant=lot::where('id',$id)->first();
+        $objetcorrespondant=$lotcorrespondant->objet;
+        $date=$lot->objet->appel->Date_Publication;
+        $duree=$lot->objet->appel->Duree_Validite;
+        $suppression='ok';
+        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','suppression','duree'));
+    }
+
+    public function destroy($id)
+    {
+        $lot=lot::find($id);
+         $lotencours=lot::where('id',$id)->first();
+         $id2=$lotencours->objet->id;
+         //dd($id2);
+         $lot->delete ();
+         return redirect()->route('suppressionB',[$id2])->with('message','supprimer');
+    }
+
+    public function listedeslots()
+    {
+        $lot=lot::all();
+        return view('Liste.lots',compact('lot'));
+    }
+
 }

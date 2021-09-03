@@ -32,7 +32,7 @@
             </thead>
             <tbody>
               <tr>
-                <td style="width: 0px;"><input name="NomDossier" type="text" required></td>
+                <td style="width: 0px;"><input name="NomDossier" type="text" required pattern="^[A-Za-z '-]+$" maxlength="20" minlength="3"></td>
                 <td style="width: 190px;"><button name="envoie" type="submit" class="btn btn-primary" > Ajouter </button></td>
               </tr>
             </tbody>

@@ -10,7 +10,7 @@
         <title>{{ config('app.name', 'Suivit des cautions') }}</title>
 
         <!-- Favicon -->
-        <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
+        <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" typ   <link rel="stylesheet" href="{{ asset('access') }}/css/own.css"/>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <!-- Extra details for Live View on GitHub Pages -->

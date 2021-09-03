@@ -29,14 +29,27 @@ class dossierController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-public function show(appel $appel,$id)
-{
+
+     public function show(appel $appel,$id)
+     {
     $dossier= dossier::where('id',$id)->first();
    // dd($dossier);
     $appel= $dossier->appel;
+   // dd($appel);
     $dossierx=dossier::where('id',$id)->first();
     return view('Appel.appelcreer',compact('appel','dossierx'));
-  }
+    }
+
+    public function showsuppress(appel $appel,$id)
+    {
+   $dossier= dossier::where('id',$id)->first();
+  // dd($dossier);
+   $appel= $dossier->appel;
+   $dossierx=dossier::where('id',$id)->first();
+   $suppression='ok';
+   return view('Appel.appelcreer',compact('appel','dossierx','suppression'));
+   }
+
 
     public function create()
     {
@@ -62,5 +75,11 @@ public function show(appel $appel,$id)
         ->with('success','valider');
     }
 
+    public function destroy($id)
+    {
+         $dossier=dossier::find($id);
+         $dossier->delete ();
+         return redirect()->route('dossier.index')->with('delete','supprimer');
+    }
 
 }

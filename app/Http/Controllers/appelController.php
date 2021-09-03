@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\appel;
+use App\Models\dossier;
 use App\Models\objet;
+
 use App\Http\Controllers\Controller;
 
 class appelController extends Controller
@@ -35,6 +37,16 @@ class appelController extends Controller
 
     }
 
+  public function destroy($id)
+    {
+         $appel=appel::find($id);
+         $apelencours=appel::where('id',$id)->first();
+         $id2=$apelencours->dossier->id;
+         //dd($id2);
+         $appel->delete ();
+         return redirect()->route('suppression',[$id2])->with('message','supprimer');
+    }
+
     public function show2(int $id)
 {
     $appel= appel::where('id',$id)->first();
@@ -43,6 +55,17 @@ class appelController extends Controller
     $appelcorrespondant=appel::where('id',$id)->first();
     $dossiercorrespondant=$appelcorrespondant->dossier;
     return view('Objet.objetcreer',compact('objet','appelcorrespondant','dossiercorrespondant'));
+}
+
+public function showsuppressA($id, objet $objet )
+{
+    $appel= appel::where('id',$id)->first();
+    $objet= $appel->objet;
+    //dd($objet);
+    $appelcorrespondant=appel::where('id',$id)->first();
+    $dossiercorrespondant=$appelcorrespondant->dossier;
+    $suppression='ok';
+    return view('Objet.objetcreer',compact('objet','appelcorrespondant','dossiercorrespondant','suppression'));
 }
      /**
      * Show the form for creating a new resource.
@@ -83,4 +106,9 @@ class appelController extends Controller
       return view('Appel/appelafficher',compact('listeappel','data','message'));
     }
 
+    public function listeappel()
+    {
+        $appel=appel::all();
+        return view('Liste.appels',compact('appel'));
+    }
 }
