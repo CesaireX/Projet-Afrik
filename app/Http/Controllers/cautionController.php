@@ -34,6 +34,13 @@ class cautionController extends Controller
     {
         $request->validate([
 
+            'Montant'=>'required',
+            'Garant'=>'required',
+            'Type_Caution'=>'required',
+            'Duree_Validite'=>'required',
+            'Date_Soumission'=>'required',
+            'lot_id'=>'required',
+            'Date_effet'=>'required'
 
         ]);
 
@@ -411,6 +418,76 @@ class cautionController extends Controller
        //dd($caution);
 
        return view('Bilan.afficherInterval',compact('caution','date1','date2','type','choix'));
+    }
+
+    public function verif($id,$secondaire)
+    {
+        $caution=caution::all();
+        $count=0;
+        foreach($caution as $cautions)
+        {
+            if($cautions->lot->objet->appel->id==$id)
+            {
+               $count++;
+               $identifiant=$cautions->lot->objet->appel->dossier->id;
+            }
+        }
+        //dd($count);
+
+        if($count==0){
+            return redirect()->route('appel.editer',[$id,$secondaire]);
+        }
+        else{
+            $interdiction='ok';
+            //dd($identifiant);
+
+            $dossierx=dossier::where('id',$identifiant)->first();
+            $appel=$dossierx->appel;
+            //dd($appel);
+
+            //dd($dossierx);
+            return view('Appel.appelcreer',compact('appel','dossierx','interdiction'));
+        }
+    }
+
+    public function editercaution($id,$secondaire,$duree,$date)
+    {
+        $cautiontrouvee=caution::findOrFail($id);
+        $caution= type_caution::all();
+        $garant=garant::all();
+        return view('Caution.editCaution',compact('cautiontrouvee','caution','secondaire','date','duree','id','garant'));
+    }
+
+    public function update(request $request, $id)
+    {
+        $validate=  $request->validate([
+
+            'Montant'=>'required',
+            'Garant'=>'required',
+            'Type_Caution'=>'required',
+            'Duree_Validite'=>'required',
+            'Date_Soumission'=>'required',
+            'lot_id'=>'required',
+            'Date_effet'=>'required'
+
+        ]);
+
+
+            caution::whereId($id)->update($validate);
+
+            $id= $request->lot_id;
+            //dd($id);
+            $caution= caution::where('lot_id',$id)->first();
+            $data=$caution->lot;
+            $objet=$data->objet;
+            $date=$objet->appel->Date_Publication;
+            $listecaution=$data->caution;
+            $duree=$objet->appel->Duree_Validite;
+            $modifier='ok';
+            //dd($listeobjet);
+            return view('Caution/listecaution',compact('listecaution','data','objet','modifier','date','duree'));
+
+
     }
 
 }

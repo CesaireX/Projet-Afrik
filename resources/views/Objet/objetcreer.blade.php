@@ -36,6 +36,22 @@
 
  @endif
 
+ @if (isset($modifier))
+
+ <script>
+
+     swal({
+         position: 'top-end',
+       icon: 'success',
+       title: 'Grand Titre modifié avec success',
+       showConfirmButton: false,
+       timer: 1500,
+          });
+
+ </script>
+
+  @endif
+
  @if (isset($appelcorrespondant))
 
 
@@ -60,7 +76,7 @@
             <form name="form" action="{{route('objet.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('objet.show',[$value->id]) }}">Lot</a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{ route('objet.editer',[$value->id,$appelcorrespondant->id]) }}">Modifier</a>
 
                 @csrf
 

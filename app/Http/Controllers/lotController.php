@@ -74,4 +74,30 @@ class lotController extends Controller
         return view('Liste.lots',compact('lot'));
     }
 
+    public function editerlot($id,$secondaire)
+    {
+        $lot=lot::findOrFail($id);
+
+        return view('Lot.editLot',compact('lot','secondaire'));
+    }
+
+
+    public function update(request $request,$id)
+    {
+        $validate=   $request->validate([
+            'lot'=>'required'
+            ]);
+
+            lot::whereId($id)->update($validate);
+
+            $id= $request->objet_id;
+        $lot= lot::where('objet_id',$id)->first();
+        $data=$lot->objet;
+        $appel=$data->appel;
+        $listelot=$data->lot;
+        $modifier='ok';
+        //dd($listeappel);
+        return view('Lot/listelot',compact('listelot','data','modifier','appel'));
+    }
+
 }

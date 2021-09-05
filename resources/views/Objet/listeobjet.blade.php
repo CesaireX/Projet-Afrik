@@ -20,6 +20,24 @@
 
 @endif
 
+
+@if (isset($modifier))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'success',
+      title: 'Grand Titre modifié avec success',
+      showConfirmButton: false,
+      timer: 1500,
+         });
+
+</script>
+
+ @endif
+
+
 <h2 style="text-align: center">Dossier {{$dossier->NomDossier}} / Appel N*{{$data->id}} </h2>
 <h2 style="text-align: center">Les Grands titres deja Choisit</h2>
 <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('dossier.show',[$dossier->id]) }}"> Retour </a>
@@ -39,7 +57,7 @@
             <form name="form" action="{{route('objet.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('objet.show',[$value->id]) }}">Lot</a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{ route('objet.editer',[$value->id,$data->id]) }}">Modifier</a>
 
                 @csrf
 

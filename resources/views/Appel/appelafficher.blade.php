@@ -20,6 +20,22 @@
 
 @endif
 
+@if (isset($modifier))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'success',
+      title: 'Appel modifié avec success',
+      showConfirmButton: false,
+      timer: 1500,
+         });
+
+</script>
+
+@endif
+
 <h2 style="text-align: center">Dossier N-{{$data->id}} / {{ $data->NomDossier}} /Liste des Appels</h2>
 <h2 style="text-align: center">Ici vous avez les appels postulés dans le dossier {{ $data->NomDossier}} </h2>
 <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('dossier.index') }}"> Retour </a>
@@ -47,7 +63,7 @@
             <form name="form" action="{{route('appel.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('objet.lister',[$value->id]) }}">Objet</a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{route('appel.verif',[$value->id,$data->id])}}">Modifier</a>
                 @csrf
 
                 <input name="_method" type="hidden" value="DELETE">

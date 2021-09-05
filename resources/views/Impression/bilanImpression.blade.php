@@ -114,7 +114,7 @@ $montant=$montant+$cautions->Montant
              </td>
 
 
-             <td>
+             <td style="width: 550px;">
 
                 @foreach ($caution as $cautions)
 

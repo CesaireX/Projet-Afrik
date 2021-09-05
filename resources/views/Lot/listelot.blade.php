@@ -11,7 +11,7 @@
     swal({
         position: 'top-end',
       icon: 'success',
-      title: 'Nouvel objet ajouté avec success',
+      title: 'Nouveau lot ajouté avec success',
       showConfirmButton: false,
       timer: 1500,
          });
@@ -19,6 +19,26 @@
 </script>
 
 @endif
+
+
+
+@if (isset($modifier))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'success',
+      title: 'Lot modifié avec success',
+      showConfirmButton: false,
+      timer: 1500,
+         });
+
+</script>
+
+ @endif
+
+
 <h2 style="text-align: center">Les lots deja Choisit dans le grand titre N-{{$data->id}}</h2>
 <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('objet.lister',[$appel->id]) }}"> Retour </a>
 <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('lot.creation',[$data->id]) }}"> Creer nouveau lot </a>
@@ -36,7 +56,7 @@
             <form name="form" action="{{route('objet.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('lot.show',[$value->id]) }}">Cautions</a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{route('lot.editer',[$value->id,$data->id])}}">Modifier</a>
 
                 @csrf
 

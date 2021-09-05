@@ -20,6 +20,24 @@
 
  @endif
 
+
+ @if (isset($modifier))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'success',
+      title: 'Caution modifiée avec success',
+      showConfirmButton: false,
+      timer: 1500,
+         });
+
+</script>
+
+@endif
+
+
  <h2 style="text-align: center">Les Cautions generées pour le lot N-{{$data->lot}}</h2>
  <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('objet.show',[$objet->id]) }}"> Retour </a>
  <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('caution.creation',[$data->id,$date,$duree]) }}"> Creer nouvelle caution </a>
@@ -73,7 +91,7 @@
             <form id="delete-post-form" action="{{ route('caution.destroy',[$value->id]) }}" method="POST">
 
                 <a class="btn btn-info" href="{{route('caution.verifier',[$value->Date_effet,$value->Duree_Validite,$value->id]) }}">Details</a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{route('caution.editer',[$value->id,$data->id,$value->Duree_Validite,$value->Date_effet]) }}">Modifier</a>
 
                 @csrf
 

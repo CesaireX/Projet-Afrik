@@ -61,7 +61,7 @@
             <form name="form" action="{{route('lot.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('lot.show',[$value->id]) }}">Cautions</a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{route('lot.editer',[$value->id,$objetcorrespondant->id])}}">Modifier</a>
 
                 @csrf
 

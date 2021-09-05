@@ -82,4 +82,26 @@ class dossierController extends Controller
          return redirect()->route('dossier.index')->with('delete','supprimer');
     }
 
+    public function edit($id)
+    {
+        $dossier=dossier::findOrFail($id);
+
+        return view('Dossier.editDossier',compact('dossier'));
+    }
+
+    public function update(request $request, $id)
+    {
+        $validate=$request->validate([
+            'NomDossier'=>'required'
+            ]);
+
+            dossier::whereId($id)->update($validate);
+
+            $data = dossier::latest()->paginate(5);
+            $modifier='ok';
+            return view('Acceuil',compact('data','modifier'))
+                ->with('i', (request()->input('page', 1) - 1) * 5)
+                ->with('modifier','valider');
+    }
+
 }

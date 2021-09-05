@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\appel;
 use App\Models\dossier;
 use App\Models\objet;
+use App\Models\lot;
+use App\Models\caution;
 
 use App\Http\Controllers\Controller;
 
@@ -110,5 +112,34 @@ public function showsuppressA($id, objet $objet )
     {
         $appel=appel::all();
         return view('Liste.appels',compact('appel'));
+    }
+
+    public function editer($id,$secondaire)
+    {
+        $appel=appel::findOrFail($id);
+
+        return view('Appel.editAppel',compact('appel','secondaire'));
+    }
+
+    public function update(request $request, $id)
+    {
+        $validate= $request->validate([
+
+            'Duree_Validite'=>'required',
+            'Date_Publication'=>'required',
+            'dossier_id'=>'required'
+
+        ]);
+
+            appel::whereId($id)->update($validate);
+
+            $identifiant= $request->dossier_id;
+            $appel= appel::where('dossier_id',$identifiant)->first();
+            //dd($appel);
+            $data=$appel->dossier;
+            $listeappel=$data->appel;
+            $modifier='ok';
+            //dd($listeappel);
+            return view('Appel/appelafficher',compact('listeappel','data','modifier'));
     }
 }

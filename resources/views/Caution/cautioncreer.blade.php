@@ -106,7 +106,7 @@
             <form name="form" action="{{route('caution.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{route('caution.verifier',[$value->Date_effet,$value->Duree_Validite,$value->id]) }}">Details</a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{route('caution.editer',[$value->id,$lotcorrespondant->id,$value->Duree_Validite,$value->Date_effet]) }}">Modifier</a>
 
                 @csrf
 

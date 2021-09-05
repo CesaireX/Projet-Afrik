@@ -19,9 +19,24 @@ swal({
 
  </script>
 
+    @endif
 
+@if (isset($modifier))
+
+<script>
+
+swal({
+    position: 'top-end',
+  icon: 'success',
+  title: 'Dossier modifié avec success',
+  showConfirmButton: false,
+  timer: 1500,
+     });
+
+ </script>
 
     @endif
+
 
 
 @if ($message = Session::get('delete'))
@@ -39,6 +54,10 @@ swal({
  </script>
 
     @endif
+
+
+
+
 <h2 style="text-align: center">Tous les dossiers de notre Entreprise</h2>
 <div class="col-lg-12 margin-tb">
 

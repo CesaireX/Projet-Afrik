@@ -84,3 +84,13 @@ Route::get('/impressionfin',[cautionController::class,'impressionfin'])->name('i
 Route::get('/interval',[cautionController::class,'interval'])->name('intervalle');
 
 Route::get('/impressionintervalle/{date1}/{date2}/{choix}',[cautionController::class,'impressionintervalle'])->name('impression.intervalle');
+
+Route::get('/editer/{id}/{secondaire}',[appelController::class,'editer'])->name('appel.editer');
+
+Route::get('/verif/{id}/{secondaire}',[cautionController::class,'verif'])->name('appel.verif');
+
+Route::get('/editerobjet/{id}/{secondaire}',[objetController::class,'editerobjet'])->name('objet.editer');
+
+Route::get('/editerlot/{id}/{secondaire}',[lotController::class,'editerlot'])->name('lot.editer');
+
+Route::get('/editercaution/{id}/{secondaire}/{duree}/{date}',[cautionController::class,'editercaution'])->name('caution.editer');

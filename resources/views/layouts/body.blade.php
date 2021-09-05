@@ -2,7 +2,7 @@
 
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
-        <span style="margin-left:340px; margin-top: 0px;" class="brand-text font-weight-light;"><h1 style="text-align: center; color: black" > SUIVIT DES CAUTIONS </h1></span>
+        <span style="margin-left:340px; margin-top: 0px;" class="brand-text font-weight-light;"><h1 style="text-align: center; color: black" > SUIVI DES CAUTIONS </h1></span>
         <img class="animation__wobble" src="{{ asset('access') }}/img/afrik.png" alt="AdminLTELogo" height="70" width="100">
 
         <!-- Right navbar links -->

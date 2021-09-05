@@ -34,6 +34,24 @@
 
  @endif
 
+ @if (isset($interdiction))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'warning',
+      title: 'cet Appel que vous tentez de modifier contient deja des cautions et donc ne peut etre modifié',
+      showConfirmButton: false,
+      timer: 4500,
+         });
+
+</script>
+
+ @endif
+
+
+
 <h2 style="text-align: center">Dossier N-{{$dossierx->id}} / {{ $dossierx->NomDossier}} /Liste des Appels</h2>
 <br>
 <h2 style="text-align: center">Ici vous avez la liste des appels postulés dans le dossier {{ $dossierx->NomDossier}} </h2>
@@ -67,7 +85,7 @@
                 <form name="form" action="{{route('appel.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('objet.lister',[$value->id]) }}"> Objet </a>
-                <a class="btn btn-primary" href="#">Modifier</a>
+                <a class="btn btn-primary" href="{{ route('appel.verif',[$value->id,$dossierx->id] )}}">Modifier</a>
 
                 @csrf
 

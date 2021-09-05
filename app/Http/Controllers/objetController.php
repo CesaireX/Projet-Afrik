@@ -73,4 +73,32 @@ class objetController extends Controller
         return view('Liste.objets',compact('objet'));
     }
 
+    public function editerobjet($id,$secondaire)
+    {
+        $objet=objet::findOrFail($id);
+
+        return view('Objet.editObjet',compact('objet','secondaire'));
+    }
+
+    public function update(request $request,$id)
+    {
+        $validate=  $request->validate([
+
+            'titre'=>'required','appel_id'=>'required',
+
+        ]);
+
+            objet::whereId($id)->update($validate);
+
+            $identifiant=$request->appel_id;
+            $objet=objet::where('appel_id',$identifiant)->first();
+
+            $data=$objet->appel;
+            $dossier=$data->dossier;
+            $listeobjet=$data->objet;
+            $modifier='ok';
+            //dd($listeobjet);
+            return view('Objet/listeobjet',compact('listeobjet','data','dossier','modifier'));
+    }
+
 }
