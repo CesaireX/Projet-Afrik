@@ -74,8 +74,29 @@ class cautionController extends Controller
         $date1= date("Y-m-d", strtotime($olddate."+$validite days"));
 
         $d2=new DateTime($date1);
-        $diff=$date->diff($d2);
-        $jours=$diff->days;
+        $diff=now()->diffInDays($d2);
+
+        //dd($diff);
+
+        //$jours=$diff->days;
+
+        //dd($diff);
+
+        if($diff>$validite && $validite!=0)
+        {
+            $donnees= "EXPIREE";
+
+            $request=new request();
+
+            $request=DB::table('cautions')->Where('id',$id)
+            ->update(['Status' =>$donnees,
+                'Duree_Validite' => 0
+                ]);
+
+        }
+
+        $jours=$diff;
+
         //dd($diff);
 
         //dd($date1);

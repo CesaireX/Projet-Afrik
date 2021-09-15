@@ -56,8 +56,9 @@ class lotController extends Controller
         $objetcorrespondant=$lotcorrespondant->objet;
         $date=$lot->objet->appel->Date_Publication;
         $duree=$lot->objet->appel->Duree_Validite;
+        $ligne=ligne::all();
         $suppression='ok';
-        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','suppression','duree'));
+        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','suppression','duree','ligne'));
     }
 
     public function destroy($id)

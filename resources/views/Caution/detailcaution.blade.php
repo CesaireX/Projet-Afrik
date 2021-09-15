@@ -55,7 +55,17 @@
 
     @else
 
-    <h3 style="color: red; margin-left: 260px;">NB: Cette caution a déja ete levee merci de contacter votre banque pour les en informer</h3>
+    @if($caution->Status=="MAIN LEVEE")
+
+    <h3 style="color: rgb(17, 85, 17); margin-left: 260px;">NB: Cette caution a déja ete levee merci de contacter votre banque pour les en informer</h3>
+
+    @endif
+
+    @if($caution->Status=="EXPIREE")
+
+    <h3 style="color: red; text-align: center">NB: CETTE CAUTION A DEJA ÉTÉ EXPIRÉE</h3>
+
+    @endif
 
     @endif
 

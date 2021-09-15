@@ -117,7 +117,15 @@
         @if ($value->Status==NULL)
         <span class="badge bg-warning" style="width: 70px;"> <h6> en cours.. </h6></span>
         @else
+
+        @if ($value->Status=="MAIN LEVEE")
         <span class="badge bg-success" style="width: 175px;"> <h6>LA CAUTION A ETE LEVEE</h6></span>
+        @endif
+
+        @if ($value->Status=="EXPIREE")
+        <span class="badge bg-danger" style="width: 175px;"> <h6>LA CAUTION A EXPIREE</h6></span>
+        @endif
+
         @endif
 
         </td>

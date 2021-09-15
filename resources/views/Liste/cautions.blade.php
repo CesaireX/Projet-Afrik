@@ -62,12 +62,19 @@ $count++;
 
     <a style="margin-top: 5px; margin-left: 20px;" class="btn btn-info" href="{{route('caution.verifier',[$cautions->Date_Soumission,$cautions->Duree_Validite,$cautions->id]) }}">Details</a>
 
-@if ($cautions->Status==NULL)
-<span class="badge bg-warning" style="width: 70px;"> <h6> en cours.. </h6></span>
-@else
-<span class="badge bg-success" style="width: 175px;"> <h6>LA CAUTION A ETE LEVEE</h6></span>
-@endif
+    @if ($cautions->Status==NULL)
+    <span class="badge bg-warning" style="width: 70px;"> <h6> en cours.. </h6></span>
+    @else
 
+    @if ($cautions->Status=="MAIN LEVEE")
+    <span class="badge bg-success" style="width: 175px;"> <h6>LA CAUTION A ETE LEVEE</h6></span>
+    @endif
+
+    @if ($cautions->Status=="EXPIREE")
+    <span class="badge bg-danger" style="width: 175px;"> <h6>LA CAUTION A EXPIREE</h6></span>
+    @endif
+
+    @endif
 </td>
 
     </tr>
