@@ -592,11 +592,11 @@ class cautionController extends Controller
 
        //dd($nombre);
 
-       $request=new Request;
+       $request=new Request();
 
        $request=DB::table('cautions')->Where('id',$id)->increment('Duree_Validite',$nombre);
 
-       $request2=new Request;
+       $request2=new Request();
 
        $request2=caution::where('id',$id)->first();
 
