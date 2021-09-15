@@ -35,7 +35,6 @@
                     <th style="width: 10px">Institution financière</th>
                     <th style="width: 10px">Montant</th>
                     <th style="width: 10px">Date de soumission</th>
-                    <th style="width: 10px">Date effet</th>
                     <th style="width: 10px">Duree Validite</th>
                     <th style="width: 150px">action</th>
                 </tr>
@@ -67,7 +66,6 @@
                 </td>
                 <td style="width: 30px;"><input value="{{$cautiontrouvee->Montant}}" style="width: 100px;" type="number" name="Montant" id="" min="100000" required></td>
                 <td style="width: 30px;"><input value="{{$cautiontrouvee->Date_Soumission}}" type="date" name="Date_Soumission" min="{{$date}}" required></td>
-                <td style="width: 30px;"><input value="{{$cautiontrouvee->Date_effet}}" type="date" name="Date_effet" min="{{$date}}" id="" required></td>
                 <td style="width: 30px;"><input value="{{$cautiontrouvee->Duree_Validite}}" style="width: 80px;" type="number" name="Duree_Validite" required min="{{$duree}}"></td>
                 <td style="width: 50px;"><button name="envoie" type="submit" class="btn btn-primary" > Modifier </button></td>
               </tr>

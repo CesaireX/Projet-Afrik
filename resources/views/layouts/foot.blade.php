@@ -1,7 +1,6 @@
 
 
   </div>
-</body>
 
 
  <!-- Control Sidebar -->
@@ -11,9 +10,6 @@
  <!-- /.control-sidebar -->
 
  <!-- Main Footer -->
-
-</div>
-<!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
@@ -36,9 +32,5 @@
 <!-- ChartJS -->
 <script src="{{ asset('access') }}/plugins/chart.js/Chart.min.js"></script>
 
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('access') }}/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('access') }}/js/pages/dashboard2.js"></script>
 </body>
 </html>

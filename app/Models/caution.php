@@ -11,13 +11,20 @@ class caution extends Model
 
     protected $fillable=[
 
-        'lot_id','Type_Caution','Garant','Montant','Date_Soumission','Date_effet','Duree_Validite','status'
+        'lot_id','Type_Caution','Garant','Montant','Date_Soumission','Date_effet','Duree_Validite','Ligne','status'
 
     ];
 
     public function lot()
     {
         return $this->belongsTo('App\Models\lot');
+    }
+
+
+
+    public function ligne()
+    {
+        return $this->hasMany('App\Models\ligne');
     }
 
 

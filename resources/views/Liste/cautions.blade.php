@@ -15,8 +15,8 @@
         <th style="width: 50px">Garant</th>
         <th style="width: 10px">Montant</th>
         <th style="width: 50px">Date de soumission</th>
-        <th style="width: 50px">Date effet</th>
         <th style="width: 20px">Duree Validite</th>
+        <th style="width: 20px">Ligne de credit</th>
         <th style="width: 50px">Statut</th>
 
     </tr>
@@ -28,7 +28,6 @@
             <td>{{$cautions->Garant}}</td>
             <td style="width: 10px;">{{$cautions->Montant}}</td>
             <td>{{$cautions->Date_Soumission}}</td>
-            <td>{{$cautions->Date_effet}}</td>
             <td style="width: 10px;">
                 @if($cautions->Status==NULL)
 
@@ -38,10 +37,30 @@
                  @else
                  0 jours
                  @endif
+
+</td>
+<td>
+
+@php $count=0; @endphp
+@foreach ($ligne as $lignes)
+
+@if ($lignes->caution_id==$cautions->id)
+@php
+$count++;
+@endphp
+@endif
+
+@endforeach
+
+@if ($count!=0)
+<p>OUI</p>
+@else
+<p>AUCUNE</p>
+@endif
 </td>
 <td style="width: 250px;">
 
-    <a style="margin-top: 5px; margin-left: 20px;" class="btn btn-info" href="{{route('caution.verifier',[$cautions->Date_effet,$cautions->Duree_Validite,$cautions->id]) }}">Details</a>
+    <a style="margin-top: 5px; margin-left: 20px;" class="btn btn-info" href="{{route('caution.verifier',[$cautions->Date_Soumission,$cautions->Duree_Validite,$cautions->id]) }}">Details</a>
 
 @if ($cautions->Status==NULL)
 <span class="badge bg-warning" style="width: 70px;"> <h6> en cours.. </h6></span>
@@ -63,6 +82,6 @@
     <tr><th><h3 style="text-align: center">Aucune Caution disponible </h3></th></tr>
 </table>
 @endif
-
+{{ $caution->links('pagination::simple-tailwind') }}
 @endsection
 @extends('layouts.foot')

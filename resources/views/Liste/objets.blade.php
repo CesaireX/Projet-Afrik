@@ -32,5 +32,10 @@
     <tr><th><h3 style="text-align: center">Aucun Objet disponible </h3></th></tr>
 </table>
 @endif
+
+
+{{ $objet->links('pagination::simple-tailwind') }}
+
+
 @endsection
 @extends('layouts.foot')

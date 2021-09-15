@@ -31,5 +31,8 @@
     <tr><th><h3 style="text-align: center">Aucun Lot disponible </h3></th></tr>
 </table>
 @endif
+
+{{ $lot->links('pagination::simple-tailwind') }}
+
 @endsection
 @extends('layouts.foot')

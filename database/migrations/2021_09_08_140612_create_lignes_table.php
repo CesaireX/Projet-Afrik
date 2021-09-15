@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppelsTable extends Migration
+class CreateLignesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateAppelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('appels', function (Blueprint $table) {
-
+        Schema::create('lignes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dossier_id')->constrained();
-            $table->integer('Duree_Validite');
-            $table->date('Date_Publication');
-            $table->string('status')->nullable();
+            $table->string('Garant');
+            $table->foreignId('caution_id')->constrained();
+            $table->string('Montant_Ligne');
+            $table->string('lot');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateAppelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appels');
+        Schema::dropIfExists('lignes');
     }
 }

@@ -42,7 +42,6 @@
     <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> GARANT       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Garant }}         </h4></td></tr>
     <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> MONTANT CAUTION       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Montant }} FCFA        </h4></td></tr>
     <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DATE DE SOUMISSION    :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Date_Soumission }}         </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DATE EFFET       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Date_effet }}         </h4></td></tr>
     <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DATE EXPIRATION        :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $date1 }}         </h4></td></tr>
 
     </table>

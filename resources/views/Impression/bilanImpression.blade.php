@@ -114,7 +114,7 @@ $montant=$montant+$cautions->Montant
              </td>
 
 
-             <td style="width: 550px;">
+             <td style="width: 850px;">
 
                 @foreach ($caution as $cautions)
 
@@ -128,12 +128,28 @@ $montant=$montant+$cautions->Montant
                 @endif
                 @endif
 
-                {{$cautions->lot->objet->titre}} -- Lot N-{{$cautions->lot->lot}} -- {{$cautions->Montant}} FCFA -- {{$cautions->Type_Caution}} -- {{$cautions->Garant}} -- @if($cautions->Status==NULL)
+                @php
+                $count=0;
+                @endphp
+
+            @foreach ($ligne as $lignes)
+
+            @if ($lignes->caution_id==$cautions->id)
+            @php
+            $count++;
+            @endphp
+            @endif
+
+            @endforeach
+
+
+{{$cautions->lot->objet->titre}} -- Lot N-{{$cautions->lot->lot}} -- {{$cautions->Montant}} FCFA -- {{$cautions->Type_Caution}} -- {{$cautions->Garant}} @if ($count!=0)  <p style="color:red; display: inline;" >--Ligne de credit</p> @else <p style="display: inline;" >--aucune ligne de credit</p>  @endif -- @if($cautions->Status==NULL)
 
                     <p style="color: rgb(3, 145, 155); display: inline;">en cours</p>
                     @else
                     <p style="color: rgb(52, 211, 12); display: inline;">levee</p>
-                @endif
+                    @endif
+
 
                 @php
                 $cautionprovisoire=$cautions->lot->objet->appel->id;

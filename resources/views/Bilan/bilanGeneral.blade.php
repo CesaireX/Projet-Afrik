@@ -146,7 +146,7 @@
                 @endif
                 @endif
 
-                {{$cautions->lot->objet->titre}} -- Lot N-{{$cautions->lot->lot}} -- {{$cautions->Montant}} FCFA --{{$cautions->Type_Caution}} -- {{$cautions->Garant}} @if($cautions->Status==NULL)
+                {{$cautions->lot->objet->titre}} -- Lot N-{{$cautions->lot->lot}} -- {{$cautions->Montant}} FCFA --{{$cautions->Type_Caution}} -- {{$cautions->Garant}} -- @if($cautions->Status==NULL)
                     <p style="color: rgb(3, 145, 155); display: inline;">caution en cours</p>
                     @else
                     <p style="color: rgb(52, 211, 12); display: inline;">caution deja levee</p>

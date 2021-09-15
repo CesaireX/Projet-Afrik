@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\lot;
+use App\Models\ligne;
 use App\Models\objet;
 use App\Http\Controllers\Controller;
 use App\Models\caution;
@@ -42,7 +43,8 @@ class lotController extends Controller
         $objetcorrespondant=$lotcorrespondant->objet;
         $date=$lot->objet->appel->Date_Publication;
         $duree=$lot->objet->appel->Duree_Validite;
-        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','duree'));
+        $ligne=ligne::all();
+        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','duree','ligne'));
     }
 
     public function showsuppressC($id,caution $caution)
@@ -70,8 +72,9 @@ class lotController extends Controller
 
     public function listedeslots()
     {
-        $lot=lot::all();
-        return view('Liste.lots',compact('lot'));
+        $lot=lot::latest()->paginate(5);
+        return view('Liste.lots',compact('lot'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function editerlot($id,$secondaire)

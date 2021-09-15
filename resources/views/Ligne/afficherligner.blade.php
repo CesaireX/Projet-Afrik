@@ -11,13 +11,12 @@
     swal({
         position: 'top-end',
       icon: 'success',
-      title: 'Nouvel objet ajouté avec success',
+      title: 'Nouveau lot ajouté avec success',
       showConfirmButton: false,
       timer: 1500,
          });
 
 </script>
-
  @endif
 
  @if (isset($suppression))
@@ -27,7 +26,7 @@
     swal({
         position: 'top-end',
       icon: 'success',
-      title: 'Grand Titre supprimé avec success',
+      title: ' Lot supprimé avec success',
       showConfirmButton: false,
       timer: 1500,
          });
@@ -36,31 +35,39 @@
 
  @endif
 
- @if (isset($appelcorrespondant))
+ @if (isset($caution))
+
+ <h2 style="text-align: center">Ligne de credit de la caution N-{{$caution->id}}</h2>
+ <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="#"> Retour </a>
+<a style="margin-left: 900px;" class="btn btn-success" href="{{route('ligne.creer',[$caution->id,$lot->id])}}"> Ajouter une ligne de credit </a>
 
 
-<h2 style="text-align: center">Dossier {{$dossiercorrespondant->NomDossier}} / Appel N-{{$appelcorrespondant->id}}</h2>
-<h2 style="text-align: center">Les Grands titres deja Choisit</h2>
-<a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('dossier.show',[$dossiercorrespondant->id]) }}"> Retour </a>
-<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('objet.creation',[$appelcorrespondant->id]) }}"> Creer nouvel objet </a>
+
 <br>
 
-@if (!$objet->isEmpty())
+
+
+@if (!$ligne->isEmpty())
+
 <table class="table table-bordered table-hover">
+
     <tr>
-        <th style="width: 50px">Code Objet </th>
-        <th style="width: 50px;">Grand titre</th>
+        <th style="width: 50px;">Garant</th>
+        <th style="width: 50px;">Montant</th>
+        <th style="width: 50px;">Lot Choisit</th>
         <th width="50px">Action</th>
     </tr>
-    @foreach ($objet as $key => $value)
-    <tr>
-        <td> {{ $value->id}}/{{$appelcorrespondant->id}}</td>
-        <td>{{ $value->titre }}</td>
-        <td>
-            <form name="form" action="{{route('objet.destroy',[$value->id])}}" method="POST">
 
-                <a class="btn btn-info" href="{{ route('objet.show',[$value->id]) }}">Lot</a>
-                <a class="btn btn-primary" href="{{ route('objet.editer',[$value->id,$appelcorrespondant->id]) }}">Modifier</a>
+    @foreach ($ligne as $key => $value)
+    <tr>
+        <td>Ligne N {{ $value->id }}</td>
+        <td>Montant {{ $value->Montant_Ligne }}</td>
+        <td>Lot N {{ $value->lot }}</td>
+        <td>
+            <form name="form" action="#" method="POST">
+
+                <a class="btn btn-info" href="#">Cautions</a>
+                <a class="btn btn-primary" href="#">Modifier</a>
 
                 @csrf
 
@@ -72,16 +79,21 @@
         </td>
     </tr>
     @endforeach
+
 </table>
 
 @else
+
 <table class="table table-bordered">
     <tr>
-        <th style="width: 50px;text-align: center">Liste des Grands titre</th>
+        <th style="width: 50px;text-align: center">Liste des Lignes de credit</th>
     </tr>
-
-    <tr><td><h3 style="text-align: center">Aucun Grand titre pour cet Appel</h3></td></tr>
+    <tr><td><h3 style="text-align: center">Aucune ligne disponible pour ce grand titre</h3></td></tr>
 </table>
+
+
+@endif
+
 @endif
 
 <script type="text/javascript">
@@ -98,7 +110,7 @@
 
          swal({
 
-             title: `Etes vous sur de vouloir supprimer cet Objet?`,
+             title: `Etes vous sur de vouloir supprimer ce lot?`,
 
              text: "Si jamais vous confirmez vous le perdrer pour toujours",
 
@@ -125,9 +137,6 @@
 
 
 </script>
-
-@endforelse
-
-
 @endsection
+
 @extends('layouts.foot')

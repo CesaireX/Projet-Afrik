@@ -15,6 +15,7 @@ use App\Models\lot;
 use App\Models\appel;
 use App\Models\dossier;
 use App\Models\objet;
+use App\Models\ligne;
 use DateTime;
 use Barryvdh\DomPDF\Facade as PDF;
 use Dompdf\Adapter\PDFLib;
@@ -30,6 +31,8 @@ class cautionController extends Controller
         return view('Caution.cautioncreate',compact('id','caution','date','duree','garant'));
     }
 
+
+
     public function store(request $request)
     {
         $request->validate([
@@ -39,8 +42,7 @@ class cautionController extends Controller
             'Type_Caution'=>'required',
             'Duree_Validite'=>'required',
             'Date_Soumission'=>'required',
-            'lot_id'=>'required',
-            'Date_effet'=>'required'
+            'lot_id'=>'required'
 
         ]);
 
@@ -54,10 +56,14 @@ class cautionController extends Controller
       $date=$objet->appel->Date_Publication;
       $listecaution=$data->caution;
       $duree=$objet->appel->Duree_Validite;
+      $ligne=ligne::all();
       $message='ok';
       //dd($listeobjet);
-      return view('Caution/listecaution',compact('listecaution','data','objet','message','date','duree'));
+      return view('Caution/listecaution',compact('listecaution','data','objet','message','date','duree','ligne'));
     }
+
+
+
 
     public function detailler($date,$validite,$id)
     {
@@ -85,6 +91,9 @@ class cautionController extends Controller
         return view('Caution.detailcaution',compact('date1','caution','lot','objet','appel','dossier','jours'));
     }
 
+
+
+
     public function levercaution($jour,$date,$id)
     {
       $jours=$jour;
@@ -110,6 +119,10 @@ class cautionController extends Controller
 
     }
 
+
+
+
+
     public function message()
     {
 
@@ -134,6 +147,8 @@ class cautionController extends Controller
         //$diff=$date->diff($d2);
         //$jours=$diff->days;
     }
+
+
     public function bilanGeneral()
     {
         $dossier=dossier::all();
@@ -141,11 +156,14 @@ class cautionController extends Controller
         $objet=objet::all();
         $lot=lot::all();
         $caution=caution::all();
+        $ligne=ligne::all();
 
         //dd($dossier);
-        return view('Bilan.bilanGeneral',compact('dossier','objet','appel','lot','caution'));
+        return view('Bilan.bilanGeneral',compact('dossier','objet','appel','lot','caution','ligne'));
 
     }
+
+
 
     public function bilansoumission()
     {
@@ -157,6 +175,8 @@ class cautionController extends Controller
 
     }
 
+
+
     public function bilanrestitution()
     {
         $type="Caution de restitution d'acompte";
@@ -167,6 +187,8 @@ class cautionController extends Controller
 
     }
 
+
+
     public function bilanfin()
     {
         $type="Caution de bonne fin";
@@ -176,6 +198,8 @@ class cautionController extends Controller
         return view('Bilan.bilanfin',compact('caution'));
 
     }
+
+
 
     public function bilanretenue()
     {
@@ -188,10 +212,13 @@ class cautionController extends Controller
     }
 
 
+
+
     public function choixdate($choix)
     {
         return view('bilanInterval',compact('choix'));
     }
+
 
 
     public function impression()
@@ -202,11 +229,12 @@ class cautionController extends Controller
         $lot=lot::all();
         $caution=caution::all();
         $nombre=caution::all()->count();
+        $ligne=ligne::all();
 
         $date2=Carbon::now();
         $date2->toRfc850String();
         $date=$date2;
-        $pdf= PDF::loadView('Impression.bilanImpression',compact('dossier','objet','appel','lot','caution','date','nombre'))
+        $pdf= PDF::loadView('Impression.bilanImpression',compact('dossier','objet','appel','lot','caution','date','nombre','ligne'))
         ->setPaper('a3', 'landscape')
         ->setWarnings(false);
         return $pdf->stream();
@@ -229,6 +257,8 @@ class cautionController extends Controller
         return $pdf->stream();
     }
 
+
+
     public function impressionrestitution()
     {
 
@@ -245,6 +275,8 @@ class cautionController extends Controller
         ->setWarnings(false);
         return $pdf->stream();
     }
+
+
 
 
     public function impressionfin()
@@ -265,6 +297,8 @@ class cautionController extends Controller
     }
 
 
+
+
     public function impressionretenue()
     {
 
@@ -283,6 +317,8 @@ class cautionController extends Controller
     }
 
 
+
+
     public function impressionintervalle($date1,$date2,$choix)
     {
         $dateactuelle=Carbon::now();
@@ -290,7 +326,8 @@ class cautionController extends Controller
         $date=$dateactuelle;
 
 
-       if($choix==" GENERAL  "){
+       if($choix==" GENERAL  ")
+       {
         $type="OK";
         $caution = caution::whereBetween('Date_Soumission',[$date1,$date2])->get();
         $nombre= caution::whereBetween('Date_Soumission',[$date1,$date2])->get()->count();
@@ -320,11 +357,11 @@ class cautionController extends Controller
         $nombre=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
             $verif->whereBetween('Date_Soumission',[$date1,$date2]);
            })->get()->count();
-     }
+        }
 
 
         if($choix==" FIN  ")
- {
+       {
          $type="Caution de bonne fin";
          $caution=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
          $verif->whereBetween('Date_Soumission',[$date1,$date2]);
@@ -333,9 +370,11 @@ class cautionController extends Controller
         $nombre=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
             $verif->whereBetween('Date_Soumission',[$date1,$date2]);
            })->get()->count();
-     }
+       }
+
+
         if($choix==" RETENUE  ")
- {
+       {
          $type="Caution de retenue de garantie";
          $caution=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
          $verif->whereBetween('Date_Soumission',[$date1,$date2]);
@@ -344,13 +383,16 @@ class cautionController extends Controller
         $nombre=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
             $verif->whereBetween('Date_Soumission',[$date1,$date2]);
            })->get()->count();
-     }
+       }
 
         $pdf= PDF::loadView('Impression.intervalleImpression',compact('caution','date1','date2','date','type','nombre'))
         ->setPaper('a3', 'portrait')
         ->setWarnings(false);
         return $pdf->stream();
     }
+
+
+
 
     public function destroy($id)
     {
@@ -362,14 +404,21 @@ class cautionController extends Controller
         return redirect()->route('suppressionC',[$id2])->with('message','supprimer');
     }
 
+
+
     public function listecaution()
     {
-        $caution=caution::all();
-        return view('Liste.cautions',compact('caution'));
+        $caution=caution::latest()->paginate(5);
+        $ligne=ligne::all();
+        return view('Liste.cautions',compact('caution','ligne'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+
+
+
+
     public function interval()
     {
-
 
        $date1= $_GET ['date1'];
        $date2= $_GET ['date2'];
@@ -390,7 +439,6 @@ class cautionController extends Controller
        })->get();
        }
 
-
        if($choix==" RESTITUTION  ")
 
        {
@@ -398,27 +446,32 @@ class cautionController extends Controller
         $caution=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
         $verif->whereBetween('Date_Soumission',[$date1,$date2]);
        })->get();
-    }
+       }
 
 
        if($choix==" FIN  ")
-{
+      {
         $type="Caution de bonne fin";
         $caution=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
         $verif->whereBetween('Date_Soumission',[$date1,$date2]);
        })->get();
-    }
+      }
+
+
        if($choix==" RETENUE  ")
-{
+      {
         $type="Caution de retenue de garantie";
         $caution=caution::where('Type_Caution','=',$type)->where(function ($verif) use ($date1,$date2){
         $verif->whereBetween('Date_Soumission',[$date1,$date2]);
        })->get();
-    }
+      }
        //dd($caution);
 
        return view('Bilan.afficherInterval',compact('caution','date1','date2','type','choix'));
     }
+
+
+
 
     public function verif($id,$secondaire)
     {
@@ -437,7 +490,8 @@ class cautionController extends Controller
         if($count==0){
             return redirect()->route('appel.editer',[$id,$secondaire]);
         }
-        else{
+        else
+        {
             $interdiction='ok';
             //dd($identifiant);
 
@@ -450,6 +504,10 @@ class cautionController extends Controller
         }
     }
 
+
+
+
+
     public function editercaution($id,$secondaire,$duree,$date)
     {
         $cautiontrouvee=caution::findOrFail($id);
@@ -457,6 +515,10 @@ class cautionController extends Controller
         $garant=garant::all();
         return view('Caution.editCaution',compact('cautiontrouvee','caution','secondaire','date','duree','id','garant'));
     }
+
+
+
+
 
     public function update(request $request, $id)
     {
@@ -470,8 +532,7 @@ class cautionController extends Controller
             'lot_id'=>'required',
             'Date_effet'=>'required'
 
-        ]);
-
+                                        ]);
 
             caution::whereId($id)->update($validate);
 
@@ -484,10 +545,22 @@ class cautionController extends Controller
             $listecaution=$data->caution;
             $duree=$objet->appel->Duree_Validite;
             $modifier='ok';
-            //dd($listeobjet);
+
             return view('Caution/listecaution',compact('listecaution','data','objet','modifier','date','duree'));
 
 
+    }
+
+
+    public function ligneafficher($id,$idobjet)
+    {
+
+        $lot=lot::where('id',$idobjet)->first();
+        $garant=garant::all();
+        //dd($ligne);
+        $caution=caution::where('id',$id)->first();
+        $ligne= $caution->ligne;
+        return view('Ligne.afficherligner',compact('ligne','caution','lot','garant'));
     }
 
 }

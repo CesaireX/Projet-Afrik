@@ -50,16 +50,17 @@ class appelController extends Controller
     }
 
     public function show2(int $id)
-{
+   {
     $appel= appel::where('id',$id)->first();
     $objet= $appel->objet;
     //dd($objet);
     $appelcorrespondant=appel::where('id',$id)->first();
     $dossiercorrespondant=$appelcorrespondant->dossier;
     return view('Objet.objetcreer',compact('objet','appelcorrespondant','dossiercorrespondant'));
-}
+    }
 
-public function showsuppressA($id, objet $objet )
+
+    public function showsuppressA($id, objet $objet )
 {
     $appel= appel::where('id',$id)->first();
     $objet= $appel->objet;
@@ -110,8 +111,9 @@ public function showsuppressA($id, objet $objet )
 
     public function listeappel()
     {
-        $appel=appel::all();
-        return view('Liste.appels',compact('appel'));
+        $appel=appel::latest()->paginate(5);
+        return view('Liste.appels',compact('appel'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function editer($id,$secondaire)

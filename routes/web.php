@@ -6,9 +6,12 @@ use App\Http\Controllers\cautionController;
 use App\Http\Controllers\objetController;
 use App\Http\Controllers\lotController;
 use App\Http\Controllers\garantController;
+use App\Http\Controllers\ligneController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChartJsController;
 use App\Models\garant;
+
+
 
 Route::resource('dossier', dossierController::class);
 
@@ -18,14 +21,22 @@ Route::resource('objet', objetController::class);
 
 Route::resource('lot', lotController::class);
 
+Route::resource('ligne', ligneController::class);
+
 Route::resource('caution', cautionController::class);
 
 Route::resource('garant', garantController::class);
 
 
+
+
 Route::get('/', function() {
     return redirect()->route('caution.prevenir');
 });
+
+
+
+
 
 Route::get('/showsuppress/{id}',[dossierController::class,'showsuppress'])->name('suppression');
 
@@ -94,3 +105,7 @@ Route::get('/editerobjet/{id}/{secondaire}',[objetController::class,'editerobjet
 Route::get('/editerlot/{id}/{secondaire}',[lotController::class,'editerlot'])->name('lot.editer');
 
 Route::get('/editercaution/{id}/{secondaire}/{duree}/{date}',[cautionController::class,'editercaution'])->name('caution.editer');
+
+Route::get('/ligneafficher/{id}/{idobjet}',[cautionController::class,'ligneafficher'])->name('ligne.lister');
+
+Route::get('/affichageligne/{id}/{idobjet}',[ligneController::class,'affichageligne'])->name('ligne.creer');

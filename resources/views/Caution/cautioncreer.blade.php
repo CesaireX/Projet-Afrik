@@ -70,19 +70,18 @@
         <th style="width: 50px">Garant</th>
         <th style="width: 30px">Montant</th>
         <th style="width: 50px">Date de soumission</th>
-        <th style="width: 50px">Date effet</th>
         <th style="width: 20px">Duree Validite</th>
+        <th style="width: 20px">Ligne de credit</th>
         <th style="width: 50px">Statut</th>
-        <th style="width: 250px">action</th>
+        <th style="width: 350px">action</th>
     </tr>
 
     @foreach ($caution as $key => $value)
     <tr>
         <td>{{$value->Type_Caution}}</td>
-        <td>{{$value->Garant}}</td>
+        <td style="width: 10px;">{{$value->Garant}}</td>
         <td>{{$value->Montant}}</td>
         <td>{{$value->Date_Soumission}}</td>
-        <td>{{$value->Date_effet}}</td>
         <td style="width: 10px;">
                                 @if($value->Status==NULL)
 
@@ -94,6 +93,26 @@
                                  @endif
         </td>
         <td>
+            @php
+                $count=0;
+            @endphp
+            @foreach ($ligne as $lignes)
+
+            @if ($lignes->caution_id==$value->id)
+            @php
+            $count++;
+            @endphp
+            @endif
+
+            @endforeach
+
+            @if ($count!=0)
+            <p>OUI</p>
+            @else
+            <p>AUCUNE</p>
+            @endif
+        </td>
+        <td>
 
         @if ($value->Status==NULL)
         <span class="badge bg-warning" style="width: 70px;"> <h6> en cours.. </h6></span>
@@ -102,17 +121,18 @@
         @endif
 
         </td>
-        <td>
+        <td style="width: 175px;">
             <form name="form" action="{{route('caution.destroy',[$value->id])}}" method="POST">
 
-                <a class="btn btn-info" href="{{route('caution.verifier',[$value->Date_effet,$value->Duree_Validite,$value->id]) }}">Details</a>
-                <a class="btn btn-primary" href="{{route('caution.editer',[$value->id,$lotcorrespondant->id,$value->Duree_Validite,$value->Date_effet]) }}">Modifier</a>
+                <a class="btn btn-info" href="{{route('caution.verifier',[$value->Date_Soumission,$value->Duree_Validite,$value->id]) }}">Details</a>
+                <a class="btn btn-primary" href="{{route('caution.editer',[$value->id,$lotcorrespondant->id,$value->Duree_Validite,$value->Date_Soumission]) }}">Modifier</a>
 
+                <a class="btn btn-warning" href="{{route('ligne.lister',[$value->id,$lotcorrespondant->id])}}">Ligne de credit</a>
                 @csrf
 
                 <input name="_method" type="hidden" value="DELETE">
 
-                <button style="width: 100px;" type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Supprimer</button>
+                <button type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='supprimer?'><span class="fas fa-trash"></span></button>
 
             </form>
         </td>

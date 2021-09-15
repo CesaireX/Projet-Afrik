@@ -20,9 +20,8 @@ class CreateCautionsTable extends Migration
             $table->string('Garant');
             $table->integer('Montant');
             $table->date('Date_Soumission');
-            $table->date('Date_effet');
             $table->integer('Duree_Validite');
-            $table->string('Status');
+            $table->string('Status')->nullable();
             $table->timestamps();
         });
     }
