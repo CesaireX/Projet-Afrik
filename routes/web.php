@@ -109,3 +109,7 @@ Route::get('/editercaution/{id}/{secondaire}/{duree}/{date}',[cautionController:
 Route::get('/ligneafficher/{id}/{idobjet}',[cautionController::class,'ligneafficher'])->name('ligne.lister');
 
 Route::get('/affichageligne/{id}/{idobjet}',[ligneController::class,'affichageligne'])->name('ligne.creer');
+
+Route::get('/prolongement/{id}/{duree}/{date}',[cautionController::class,'prolongement'])->name('caution.prolonger');
+
+Route::get('/detail_prolongement/{date}/{validite}/{id}',[cautionController::class,'detail_prolongement'])->name('detail.prolonger');

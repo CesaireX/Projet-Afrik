@@ -147,9 +147,16 @@ $montant=$montant+$cautions->Montant
 
                     <p style="color: rgb(3, 145, 155); display: inline;">en cours</p>
                     @else
-                    <p style="color: rgb(52, 211, 12); display: inline;">levee</p>
+
+                    @if ($cautions->Status=="MAIN LEVEE")
+                   <p style="color: rgb(0, 151, 0); display: inline;">levee</p>
                     @endif
 
+                    @if ($cautions->Status=="EXPIREE")
+                    <p style="color: rgb(151, 0, 0); display: inline;">expiree</p>
+                    @endif
+
+                    @endif
 
                 @php
                 $cautionprovisoire=$cautions->lot->objet->appel->id;

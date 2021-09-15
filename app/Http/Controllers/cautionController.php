@@ -160,10 +160,12 @@ class cautionController extends Controller
 
         $caution2=caution::all()->count();
         $cautionactuelle= caution::where('Status',0)->count();
+        $cautionexpiree= caution::where('Status',"EXPIREE")->count();
+        //dd($cautionexpiree);
         $cautionrestante=$caution2-$cautionactuelle;
         //dd($cautionactuelle);
 
-        return view('Terme',compact('date','date1','caution','lot','objet','appel','dossier','cautionnumber','cautionencours'))->with('caution2',json_encode($caution2,JSON_NUMERIC_CHECK))->with('cautionactuelle',json_encode($cautionactuelle,JSON_NUMERIC_CHECK))->with('cautionrestante',json_encode($cautionrestante,JSON_NUMERIC_CHECK));
+        return view('Terme',compact('date','date1','caution','lot','objet','appel','dossier','cautionnumber','cautionencours'))->with('caution2',json_encode($caution2,JSON_NUMERIC_CHECK))->with('cautionactuelle',json_encode($cautionactuelle,JSON_NUMERIC_CHECK))->with('cautionrestante',json_encode($cautionrestante,JSON_NUMERIC_CHECK))->with('cautionexpiree',json_encode($cautionexpiree,JSON_NUMERIC_CHECK));
         //$d2=new DateTime($date1);
         //$diff=$date->diff($d2);
         //$jours=$diff->days;
@@ -584,4 +586,60 @@ class cautionController extends Controller
         return view('Ligne.afficherligner',compact('ligne','caution','lot','garant'));
     }
 
+    public function prolongement($id,$duree,$date)
+    {
+       $nombre=$_GET["Duree_Validite"];
+
+       //dd($nombre);
+
+       $request=new Request;
+
+       $request=DB::table('cautions')->Where('id',$id)->increment('Duree_Validite',$nombre);
+
+       $request2=new Request;
+
+       $request2=caution::where('id',$id)->first();
+
+       //dd($request2->Duree_Validite);
+
+       $newduree=$request2->Duree_Validite;
+
+       return redirect()->route('detail.prolonger',[$date,$newduree,$id]);
+
+       //dd($request);
+    }
+
+    public function detail_prolongement($date,$validite,$id)
+    {
+        $olddate=$date;
+        $date=new DateTime('today');
+
+        $date1= date("Y-m-d", strtotime($olddate."+$validite days"));
+
+        $d2=new DateTime($date1);
+        $diff=now()->diffInDays($d2);
+
+        if($diff>$validite && $validite!=0)
+        {
+            $donnees= "EXPIREE";
+
+            $request=new request();
+
+            $request=DB::table('cautions')->Where('id',$id)
+            ->update(['Status' =>$donnees,
+                'Duree_Validite' => 0
+                ]);
+        }
+
+        $jours=$diff;
+
+        $caution= caution::where('id',$id)->first();
+        $lot= $caution->lot;
+        $objet=$lot->objet;
+        $appel=$objet->appel;
+        $dossier=$appel->dossier;
+        $prolonger='ok';
+
+        return view('Caution.detailcaution3',compact('date1','caution','lot','objet','appel','dossier','jours','prolonger'));
+    }
 }

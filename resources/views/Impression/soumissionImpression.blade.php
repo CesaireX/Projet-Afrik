@@ -49,7 +49,14 @@ $montant=$montant+$cautions->Montant
 {{$cautions->lot->objet->titre}} -- Lot N-{{$cautions->lot->lot}} -- {{$cautions->Montant}} FCFA --{{$cautions->Type_Caution}} -- {{$cautions->Garant}} --  @if($cautions->Status==NULL)
 <p style="color: rgb(3, 145, 155); display: inline;">caution en cours</p>
 @else
-<p style="color: rgb(52, 211, 12); display: inline;">caution deja levee</p>
+
+@if ($cautions->Status=="MAIN LEVEE")
+<p style="color: rgb(0, 151, 0); display: inline;">levee</p>
+ @endif
+
+ @if ($cautions->Status=="EXPIREE")
+ <p style="color: rgb(151, 0, 0); display: inline;">expiree</p>
+ @endif
 
 @endif
 <br><br>

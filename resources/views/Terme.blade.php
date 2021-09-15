@@ -96,12 +96,12 @@
                                                 {
                                                     type: 'bar',
                                                       data: {
-                                                        labels: ["Total des cautions", "Cautions déja levées","Cautions en cours"],
+                                                        labels: ["Total des cautions", "Cautions déja levées","Cautions en cours","Caution expirées"],
                                                       datasets: [
                                                     {
                                                           label: "total des cautions",
-                                                          backgroundColor: ["#3cba9f", "#8e5ea2","#c45850"],
-                                                          data: [ {{$caution2}} , {{$cautionactuelle}}, {{$cautionrestante}}, 0]
+                                                          backgroundColor: ["#000080", "#00FF00","#00FFFF","#c45850"],
+                                                          data: [ {{$caution2}} , {{$cautionactuelle}}, {{$cautionrestante}}, {{$cautionexpiree}},  0]
                                                     }
                                                 ]
                                                 },
