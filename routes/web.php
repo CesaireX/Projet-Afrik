@@ -40,6 +40,14 @@ Route::get('/', function() {
 
 Route::get('/showsuppress/{id}',[dossierController::class,'showsuppress'])->name('suppression');
 
+Route::get('/choix_dossier',[dossierController::class,'choix_dossier'])->name('bilan.dossier');
+
+Route::get('/bilan_par_dossier/{id}',[dossierController::class,'bilan_par_dossier'])->name('dossier.choisit');
+
+Route::get('/impression_dossier/{id}',[dossierController::class,'impression_dossier'])->name('impression.dossier');
+
+Route::get('/showsuppressD/{id}',[ligneController::class,'showsuppressD'])->name('suppressionD');
+
 Route::get('/store2/{id}/{date}/{duree}',[garantController::class,'store2'])->name('garant.enregistrer');
 
 Route::get('/showsuppressA/{id}',[appelController::class,'showsuppressA'])->name('suppressionA');
@@ -63,6 +71,8 @@ Route::get('/levercaution/{jour}/{date}/{id}',[cautionController::class,'leverca
 Route::get('/message',[cautionController::class,'message'])->name('caution.prevenir');
 
 Route::get('/bilanGeneral',[cautionController::class,'bilanGeneral'])->name('caution.bilanGeneral');
+
+Route::get('/bilan_credit',[cautionController::class,'bilan_credit'])->name('bilan.credit');
 
 Route::get('/choixdate/{choix}',[cautionController::class,'choixdate'])->name('selection');
 
@@ -90,6 +100,8 @@ Route::get('/impressionrestitution',[cautionController::class,'impressionrestitu
 
 Route::get('/impressionretenue',[cautionController::class,'impressionretenue'])->name('impression.retenue');
 
+Route::get('/impression_credit',[cautionController::class,'impression_credit'])->name('impression.credit');
+
 Route::get('/impressionfin',[cautionController::class,'impressionfin'])->name('impression.fin');
 
 Route::get('/interval',[cautionController::class,'interval'])->name('intervalle');
@@ -112,4 +124,13 @@ Route::get('/affichageligne/{id}/{idobjet}',[ligneController::class,'affichageli
 
 Route::get('/prolongement/{id}/{duree}/{date}',[cautionController::class,'prolongement'])->name('caution.prolonger');
 
-Route::get('/detail_prolongement/{date}/{validite}/{id}',[cautionController::class,'detail_prolongement'])->name('detail.prolonger');
+Route::get('/detail_prolongement/{date}/{validite}/{id}/{nombre}',[cautionController::class,'detail_prolongement'])->name('detail.prolonger');
+
+Route::get('/retourcaution/{id}',[ligneController::class,'retourcaution'])->name('caution.retour');
+
+Route::get('/caution_ligne',[cautionController::class,'caution_ligne'])->name('caution.credit');
+
+Route::get('/caution_sans_ligne',[cautionController::class,'caution_sans_ligne'])->name('caution.libre');
+
+Route::get('/appel_update/{id}/{secondaire}',[appelController::class,'appel_update'])->name('appel.actualiser');
+

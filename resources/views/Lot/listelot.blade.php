@@ -41,7 +41,7 @@
 
 <h2 style="text-align: center">Les lots deja Choisit dans le grand titre N-{{$data->id}}</h2>
 <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('objet.lister',[$appel->id]) }}"> Retour </a>
-<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('lot.creation',[$data->id]) }}"> Creer nouveau lot </a>
+<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('lot.creation',[$data->id]) }}"><i class="fas fa-plus"></i> Creer nouveau lot </a>
 
 <br>
 <table class="table table-bordered table-hover">
@@ -51,9 +51,10 @@
     </tr>
     @foreach ($listelot as $key => $value)
     <tr>
-        <td>Lot {{ $value->lot }}</td>
+        <td>Lot{{ $value->lot }}</td>
         <td>
-            <form name="form" action="{{route('objet.destroy',[$value->id])}}" method="POST">
+
+            <form name="form" action="{{route('lot.destroy',[$value->id])}}" method="POST">
 
                 <a class="btn btn-info" href="{{ route('lot.show',[$value->id]) }}">Cautions</a>
                 <a class="btn btn-primary" href="{{route('lot.editer',[$value->id,$data->id])}}">Modifier</a>
@@ -64,8 +65,8 @@
 
                 <button style="width: 100px;" type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Supprimer</button>
 
-
             </form>
+
         </td>
     </tr>
 

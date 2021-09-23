@@ -1,36 +1,19 @@
 
 
-  </div>
+ </div>
 
-
- <!-- Control Sidebar -->
- <aside class="control-sidebar control-sidebar-dark">
-   <!-- Control sidebar content goes here -->
- </aside>
- <!-- /.control-sidebar -->
-
- <!-- Main Footer -->
-
-<!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
-<script src="{{ asset('access') }}/js/sweetalert.min.js"></script>
-<script src="{{ asset('access') }}/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="{{ asset('access') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="{{ asset('access') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('access') }}/js/adminlte.js"></script>
-
-<!-- PAGE {{ asset('access') }}/PLUGINS -->
-<!-- jQuery Mapael -->
-<script src="{{ asset('access') }}/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="{{ asset('access') }}/plugins/raphael/raphael.min.js"></script>
-<script src="{{ asset('access') }}/js/Chart.min.js"></script>
-<script src="{{ asset('access') }}/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="{{ asset('access') }}/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="{{ asset('access') }}/plugins/chart.js/Chart.min.js"></script>
-
-</body>
-</html>
+ <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+ <!-- REQUIRED SCRIPTS -->
+ <!-- jQuery -->
+ <script src="{{ asset('access') }}/js/sweetalert.min.js"></script>
+ <script src="{{ asset('access') }}/plugins/jquery/jquery.min.js"></script>
+ <script src="{{ asset('access') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="{{ asset('access') }}/js/adminlte.js"></script>
+ <script src="{{ asset('access') }}/js/app.js"></script>
+ <script src="{{ asset('access') }}/js/Chart.min.js"></script>
+ <script src="{{ asset('access') }}/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+ <script src="{{ asset('access') }}/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+ <!-- ChartJS -->
+ <script src="{{ asset('access') }}/plugins/chart.js/Chart.min.js"></script>

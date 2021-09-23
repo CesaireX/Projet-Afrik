@@ -4,6 +4,21 @@
 
 @section('content')
 
+@if(isset($refus))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'warning',
+      title: 'L\'institution financière que vous tenter d\'ajouter existe déja',
+      showConfirmButton: false,
+      timer: 3500,
+         });
+
+</script>
+
+@endif
 
 <form method="post" action="{{ route('garant.store') }}">
 

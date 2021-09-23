@@ -8,7 +8,7 @@
 <h2 style="margin-left: 450px;">Lot N-{{$secondaire}}</h2>
 
 
-<form method="post" action="{{route('caution.update',[$cautiontrouvee->id])}}">
+<form method="post" action="{{ route('caution.update',[$cautiontrouvee->id]) }}">
 
     @csrf @method('PATCH')
 

@@ -61,7 +61,7 @@ swal({
 <h2 style="text-align: center">Tous les dossiers de notre Entreprise</h2>
 <div class="col-lg-12 margin-tb">
 
-    <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('dossier.create') }}"> Creer nouveau dossier </a>
+    <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('dossier.create') }}"><i class="fas fa-plus"></i> nouveau dossier </a>
 
 </div>
 @if (!$data->isEmpty())

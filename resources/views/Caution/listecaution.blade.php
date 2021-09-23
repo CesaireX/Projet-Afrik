@@ -40,7 +40,7 @@
 
  <h2 style="text-align: center">Les Cautions generées pour le lot N-{{$data->lot}}</h2>
  <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('objet.show',[$objet->id]) }}"> Retour </a>
- <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('caution.creation',[$data->id,$date,$duree]) }}"> Creer nouvelle caution </a>
+ <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('caution.creation',[$data->id,$date,$duree]) }}"><i class="fas fa-plus"></i> Creer nouvelle caution </a>
 
 
 <br>
@@ -50,6 +50,7 @@
 <table class="table table-bordered table-hover">
 
     <tr>
+        <th style="width: 50px;">Numero de caution</th>
         <th style="width: 50px;">Cautions</th>
         <th style="width: 50px">Garant</th>
         <th style="width: 30px">Montant</th>
@@ -57,11 +58,12 @@
         <th style="width: 20px">Duree Validite</th>
         <th style="width: 20px">Ligne de credit</th>
         <th style="width: 50px">Statut</th>
-        <th style="width: 350px">action</th>
+        <th style="width: 150px">action</th>
     </tr>
 
     @foreach ($listecaution as $key => $value)
     <tr>
+        <td>{{$value->id}}/{{$value->lot->id}}/{{$value->lot->objet->appel->id}}/{{$value->lot->objet->appel->dossier->NomDossier}}</td>
         <td>{{$value->Type_Caution}}</td>
         <td>{{$value->Garant}}</td>
         <td>{{$value->Montant}}</td>
@@ -100,7 +102,7 @@
         <td>
 
             @if ($value->Status==NULL)
-            <span class="badge bg-warning" style="width: 70px;"> <h6> en cours.. </h6></span>
+            <span class="badge bg-warning" style="width: 190px;"> <h6>LA CAUTION EST EN COURS </h6></span>
             @else
 
             @if ($value->Status=="MAIN LEVEE")
@@ -108,7 +110,7 @@
             @endif
 
             @if ($value->Status=="EXPIREE")
-            <span class="badge bg-danger" style="width: 175px;"> <h6>LA CAUTION A EXPIREE</h6></span>
+            <span class="badge bg-danger" style="width: 160px;"> <h6>LA CAUTION A EXPIREE</h6></span>
             @endif
 
             @endif
@@ -117,9 +119,9 @@
         <td>
             <form id="delete-post-form" action="{{ route('caution.destroy',[$value->id]) }}" method="POST">
 
-                <a class="btn btn-info" href="{{route('caution.verifier',[$value->Date_Soumission,$value->Duree_Validite,$value->id]) }}">Details</a>
-                <a class="btn btn-primary" href="{{route('caution.editer',[$value->id,$data->id,$value->Duree_Validite,$value->Date_Soumission]) }}">Modifier</a>
-                <a class="btn btn-warning" href="{{route('ligne.lister',[$value->id,$data->id])}}">Ligne de credit</a>
+                <!--     <a class="btn btn-primary" href="{{route('caution.editer',[$value->id,$data->id,$value->Duree_Validite,$value->Date_Soumission]) }}">Modifier</a>-->
+                <a class="btn btn-outline-light" href="{{route('ligne.lister',[$value->id,$data->id])}}"><i class="fas fa-credit-card"></i></a>
+                <a class="btn btn-info" href="{{route('caution.verifier',[$value->Date_Soumission,$value->Duree_Validite,$value->id]) }}"><i class="fas fa-info-circle"></i></a>
                 @csrf
 
                 <input name="_method" type="hidden" value="DELETE">

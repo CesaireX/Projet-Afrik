@@ -5,6 +5,22 @@
 
 @section('content')
 
+@if(isset($refus))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'warning',
+      title: 'Le lot que vous tenter d\'ajouter existe déja',
+      showConfirmButton: false,
+      timer: 3500,
+         });
+
+</script>
+
+@endif
+
 <h2 style="margin-left: 415px;">Grand Titre N*{{$id}}</h2>
 <form method="post" action="{{ route('lot.store',[$id]) }}">
 

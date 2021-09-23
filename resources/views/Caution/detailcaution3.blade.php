@@ -19,6 +19,22 @@
 
 @endif
 
+@if (isset($reduire))
+
+<script>
+
+    swal({
+        position: 'top-end',
+      icon: 'success',
+      title: 'Caution réduite avec success',
+      showConfirmButton: false,
+      timer: 2000,
+         });
+
+</script>
+
+@endif
+
     <div class="card-header bg-white border-0">
     <h3 style="text-align: left;">  </h3>
 
@@ -77,7 +93,7 @@
 
     <a style="margin-top: -9px;margin-left: 450px;" href="{{route('caution.lever',[$jours,$date1,$caution->id]) }}" class="btn btn-success"> Lever la main sur cette caution </a>
 
-    <button style="margin-top: -9px" id="afficher" class="btn btn-info" ><i class="fa fa-plus"> PROLONGEMENT </i></button>
+    <button style="margin-top: -9px" id="afficher" class="btn btn-info" ><i class="fa fa-plus"> PROLONGEMENT/REDUCTION </i></button>
 
 <script type="text/javascript">
 
@@ -102,20 +118,20 @@
          <div class="card">
            <div style="margin-left: 40px;" class="card-header">
 
-           <U> <h3 class="card-title"> Prolongement de la caution N-{{$caution->id}}/{{ $dossier->NomDossier }}/{{ $appel->id }}/{{ $objet->id }}.{{ $lot->lot }} </h3> </U>
+            <U> <h3 class="card-title"> Prolonger/Reduire de la caution N-{{$caution->id}}/{{ $dossier->NomDossier }}/{{ $appel->id }}/{{ $objet->id }}.{{ $lot->lot }} </h3> </U>
 
-             <div class="card-tools">
+            <div class="card-tools">
 
-             </div>
-           </div>
+            </div>
+          </div>
 
-           <div class="card-body">
+          <div class="card-body">
 
 
-             <table border="1" cellspacing="5" cellpadding="30">
-               <thead>
-                 <tr>
-                   <th style="width: 50px;"> Nombre de jours a prolonger</th>
+            <table border="1" cellspacing="5" cellpadding="30">
+              <thead>
+                <tr>
+                  <th style="width: 50px;"> Nombre de jours a prolonger/reduire(-)</th>
                    <th style="width: 50px;"> executer </th>
                  </tr>
                </thead>

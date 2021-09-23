@@ -1,4 +1,3 @@
-@extends('layouts.head')
 
 @extends('layouts.body')
 
@@ -129,7 +128,7 @@ $count=0;
 
 @foreach ($caution as $cautions)
 
-@if($date->diff(new DateTime(date("Y-m-d", strtotime($cautions->Date_effet ."+$cautions->Duree_Validite days"))))->days <=10 && $cautions->Duree_Validite!=0)
+@if($date->diff(new DateTime(date("Y-m-d", strtotime($cautions->Date_Soumission."+$cautions->Duree_Validite days"))))->days <=10 && $cautions->Duree_Validite!=0)
 <script>
 var message=4;
     swal({
@@ -182,7 +181,7 @@ $count++;
 
     @foreach ($caution as $cautions)
 
-    @if($date->diff(new DateTime(date("Y-m-d", strtotime($cautions->Date_effet ."+$cautions->Duree_Validite days"))))->days <=10 && $cautions->Duree_Validite!=0)
+    @if($date->diff(new DateTime(date("Y-m-d", strtotime($cautions->Date_Soumission ."+$cautions->Duree_Validite days"))))->days <=10 && $cautions->Duree_Validite!=0)
 
     <tr>
         <td>{{$cautions->lot->objet->appel->dossier->NomDossier}}</td>
@@ -190,8 +189,8 @@ $count++;
         <td>{{$cautions->lot->objet->id}}</td>
         <td>Lot {{$cautions->lot->lot}}</td>
         <td>{{$cautions->id}} / ({{$cautions->Type_Caution}})</td>
-        <td> <p style="color:rosybrown">{{$date->diff(new DateTime(date("Y-m-d", strtotime($cautions->Date_effet ."+$cautions->Duree_Validite days"))))->days}} jours</p> </td>
-        <td> <a style="display: inline;" class="btn btn-info" href="{{route('caution.verifier',[$cautions->Date_effet,$cautions->Duree_Validite,$cautions->id]) }}">Aller vers la caution</a></td>
+        <td> <p style="color:rosybrown">{{$date->diff(new DateTime(date("Y-m-d", strtotime($cautions->Date_Soumission ."+$cautions->Duree_Validite days"))))->days}} jours</p> </td>
+        <td> <a style="display: inline;" class="btn btn-info" href="{{route('caution.verifier',[$cautions->Date_Soumission,$cautions->Duree_Validite,$cautions->id]) }}">Aller vers la caution</a></td>
     </tr>
 
     @endif
@@ -215,6 +214,5 @@ $count++;
 <a style="margin-left: 430px;" class="btn btn-success" href="{{ route('dossier.index') }}"> Aller vers la liste des dossiers </a>
 
 @endsection
-
 
 @extends('layouts.foot')

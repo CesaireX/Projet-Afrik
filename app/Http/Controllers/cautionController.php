@@ -17,21 +17,19 @@ use App\Models\dossier;
 use App\Models\objet;
 use App\Models\ligne;
 use DateTime;
-use Barryvdh\DomPDF\Facade as PDF;
-use Dompdf\Adapter\PDFLib;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+
+
 
 class cautionController extends Controller
 {
     public function creercaution(request $request, $id, $date, $duree)
     {
-
         $caution= type_caution::all();
         $garant=garant::all();
 
         return view('Caution.cautioncreate',compact('id','caution','date','duree','garant'));
     }
-
-
 
     public function store(request $request)
     {
@@ -74,15 +72,15 @@ class cautionController extends Controller
         $date1= date("Y-m-d", strtotime($olddate."+$validite days"));
 
         $d2=new DateTime($date1);
-        $diff=now()->diffInDays($d2);
+        $diff=$date->diff($d2);
+
+        $jours=$diff->days;
+
+        //dd($jours);
 
         //dd($diff);
 
-        //$jours=$diff->days;
-
-        //dd($diff);
-
-        if($diff>$validite && $validite!=0)
+        if($jours>$validite && $validite!=0)
         {
             $donnees= "EXPIREE";
 
@@ -94,8 +92,6 @@ class cautionController extends Controller
                 ]);
 
         }
-
-        $jours=$diff;
 
         //dd($diff);
 
@@ -148,7 +144,7 @@ class cautionController extends Controller
     {
 
         $date=new DateTime('today');
-        $date1= date("Y-m-d", strtotime('Date_effet'."+'Duree_Validite' days"));
+        $date1= date("Y-m-d", strtotime('Date_Soumission'."+'Duree_Validite' days"));
 
         $caution= caution::all();
         $cautionnumber= caution::all()->count();
@@ -159,11 +155,12 @@ class cautionController extends Controller
         $cautionencours= caution::where('Status',0)->count();
 
         $caution2=caution::all()->count();
-        $cautionactuelle= caution::where('Status',0)->count();
+        $cautionactuelle= caution::where('Status','MAIN LEVEE')->count();
+        //dd($cautionactuelle);
         $cautionexpiree= caution::where('Status',"EXPIREE")->count();
         //dd($cautionexpiree);
-        $cautionrestante=$caution2-$cautionactuelle;
-        //dd($cautionactuelle);
+        $cautionrestante=caution::where('Status',NULL)->count();
+        //dd($cautionrestante);
 
         return view('Terme',compact('date','date1','caution','lot','objet','appel','dossier','cautionnumber','cautionencours'))->with('caution2',json_encode($caution2,JSON_NUMERIC_CHECK))->with('cautionactuelle',json_encode($cautionactuelle,JSON_NUMERIC_CHECK))->with('cautionrestante',json_encode($cautionrestante,JSON_NUMERIC_CHECK))->with('cautionexpiree',json_encode($cautionexpiree,JSON_NUMERIC_CHECK));
         //$d2=new DateTime($date1);
@@ -234,15 +231,10 @@ class cautionController extends Controller
 
     }
 
-
-
-
     public function choixdate($choix)
     {
         return view('bilanInterval',compact('choix'));
     }
-
-
 
     public function impression()
     {
@@ -257,9 +249,13 @@ class cautionController extends Controller
         $date2=Carbon::now();
         $date2->toRfc850String();
         $date=$date2;
+
+        $snappy = new Pdf('/usr/local/bin/wkhtmltopdf');
         $pdf= PDF::loadView('Impression.bilanImpression',compact('dossier','objet','appel','lot','caution','date','nombre','ligne'))
-        ->setPaper('a3', 'landscape')
-        ->setWarnings(false);
+        ->setPaper('a4', 'landscape')
+        ->setWarnings(false)
+        ->setOption("footer-right", "Page [page] / [topage]");
+        //dd($pdf);
         return $pdf->stream();
     }
 
@@ -276,7 +272,8 @@ class cautionController extends Controller
 
         $pdf= PDF::loadView('Impression.soumissionImpression',compact('caution','date','nombre'))
         ->setPaper('a3', 'portrait')
-        ->setWarnings(false);
+        ->setWarnings(false)
+        ->setOption("footer-right", "Page [page] / [topage]");
         return $pdf->stream();
     }
 
@@ -295,7 +292,8 @@ class cautionController extends Controller
 
         $pdf= PDF::loadView('Impression.restitutionImpression',compact('caution','date','nombre'))
         ->setPaper('a3', 'portrait')
-        ->setWarnings(false);
+        ->setWarnings(false)
+        ->setOption("footer-right", "Page [page] / [topage]");
         return $pdf->stream();
     }
 
@@ -315,7 +313,8 @@ class cautionController extends Controller
 
         $pdf= PDF::loadView('Impression.finImpression',compact('caution','date','nombre'))
         ->setPaper('a3', 'portrait')
-        ->setWarnings(false);
+        ->setWarnings(false)
+        ->setOption("footer-right", "Page [page] / [topage]");
         return $pdf->stream();
     }
 
@@ -335,7 +334,8 @@ class cautionController extends Controller
 
         $pdf= PDF::loadView('Impression.retenueImpression',compact('caution','date','nombre'))
         ->setPaper('a3', 'portrait')
-        ->setWarnings(false);
+        ->setWarnings(false)
+        ->setOption("footer-right", "Page [page] / [topage]");
         return $pdf->stream();
     }
 
@@ -410,7 +410,8 @@ class cautionController extends Controller
 
         $pdf= PDF::loadView('Impression.intervalleImpression',compact('caution','date1','date2','date','type','nombre'))
         ->setPaper('a3', 'portrait')
-        ->setWarnings(false);
+        ->setWarnings(false)
+        ->setOption("footer-right", "Page [page] / [topage]");
         return $pdf->stream();
     }
 
@@ -540,12 +541,10 @@ class cautionController extends Controller
     }
 
 
-
-
-
     public function update(request $request, $id)
     {
-        $validate=  $request->validate([
+
+        $validate= $request->validate([
 
             'Montant'=>'required',
             'Garant'=>'required',
@@ -554,7 +553,6 @@ class cautionController extends Controller
             'Date_Soumission'=>'required',
             'lot_id'=>'required',
             'Date_effet'=>'required'
-
                                         ]);
 
             caution::whereId($id)->update($validate);
@@ -604,12 +602,12 @@ class cautionController extends Controller
 
        $newduree=$request2->Duree_Validite;
 
-       return redirect()->route('detail.prolonger',[$date,$newduree,$id]);
+       return redirect()->route('detail.prolonger',[$date,$newduree,$id,$nombre]);
 
        //dd($request);
     }
 
-    public function detail_prolongement($date,$validite,$id)
+    public function detail_prolongement($date,$validite,$id,$nombre)
     {
         $olddate=$date;
         $date=new DateTime('today');
@@ -638,8 +636,51 @@ class cautionController extends Controller
         $objet=$lot->objet;
         $appel=$objet->appel;
         $dossier=$appel->dossier;
+        if($nombre>0)
+        {
         $prolonger='ok';
-
         return view('Caution.detailcaution3',compact('date1','caution','lot','objet','appel','dossier','jours','prolonger'));
+        }
+        if($nombre<0)
+        {
+            $reduire='ok';
+        return view('Caution.detailcaution3',compact('date1','caution','lot','objet','appel','dossier','jours','reduire'));
+        }
     }
+
+
+    public function caution_ligne()
+    {
+        $caution=caution::all();
+        $ligne=ligne::all();
+        return view('Liste.caution_ligne',compact('caution','ligne'));
+    }
+
+
+    public function caution_sans_ligne()
+    {
+        $caution=caution::all();
+        $ligne=ligne::all();
+        return view('Liste.caution_sans_ligne',compact('caution','ligne'));
+    }
+
+    public function impression_credit()
+    {
+        $caution=caution::all();
+        $ligne=ligne::all();
+        $date2=Carbon::now();
+        $date2->toRfc850String();
+        $date=$date2;
+        $pdf=PDF::loadView('Impression.impressionaveccredit',compact('caution','ligne','date'));
+        return $pdf->stream();
+    }
+
+
+    public function bilan_credit()
+    {
+        $caution=caution::all();
+        $ligne=ligne::all();
+        return view('Bilan.bilancredit',compact('caution','ligne'));
+    }
+
 }

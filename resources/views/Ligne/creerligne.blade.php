@@ -10,8 +10,9 @@
 <form method="post" action="{{ route('ligne.store',[$id]) }}">
 
     @csrf
+
     <textarea style="visibility: hidden;" name="caution_id" id="" cols="0" rows="0"> {{$id}}  </textarea>
-    <textarea style="visibility:" name="lot" id="" cols="0" rows="0"> {{$lotcorrespondant->lot}}  </textarea>
+    <textarea style="visibility: hidden;" name="lot" id="" cols="0" rows="0"> {{$lotcorrespondant->lot}}  </textarea>
     <table class="table table-bordered table-hover">
 
         <tr>

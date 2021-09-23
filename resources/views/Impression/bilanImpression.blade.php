@@ -1,7 +1,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<h1 style="margin-left: 80px;"><U>TABLEAU RECAPITULATIF DES CAUTIONS ACTUALISEES AVEC AUTRES RESULTATS</U></h1>
+<h1 style="text-align: center"><U>TABLEAU RECAPITULATIF DES CAUTIONS ACTUALISEES AVEC AUTRES RESULTATS</U></h1>
 
 <br>
 @php
@@ -23,7 +23,7 @@ $montant=$montant+$cautions->Montant
 <h3 style="text-align: right; margin-top: -43px;">Date : {{$date}} </h3>
 <h3 style="text-align: left;">  Nombre total des cautions: <U><i> {{$nombre}}</i></U> @if($nombre>1)cautions @else caution @endif </h3>
 
-<table border="1px" style="width: 100%;">
+<table style="" border="1px" cellspacing="0">
 
     <tr>
         <th style="text-align: center; background-color: white;">DOSSIER</th>
@@ -35,9 +35,11 @@ $montant=$montant+$cautions->Montant
 
 @foreach ($dossier as $dossiers )
 
-    <tr>
+    <tr style="height:max-content">
+
             <td>{{$dossiers->NomDossier}}</td>
             <td>
+
                 @foreach ($appel as $appels)
 
                 @if($appels->dossier_id==$dossiers->id)
@@ -65,7 +67,6 @@ $montant=$montant+$cautions->Montant
 
              <td>
                 @foreach ($objet as $objets )
-
 
                 @if($objets->appel->dossier->NomDossier==$dossiers->NomDossier)
 
@@ -114,7 +115,7 @@ $montant=$montant+$cautions->Montant
              </td>
 
 
-             <td style="width: 850px;">
+             <td style="width: 450px;">
 
                 @foreach ($caution as $cautions)
 
@@ -165,16 +166,19 @@ $montant=$montant+$cautions->Montant
                 <br>
 
                 @endif
+
+
+
                 @endforeach
 
              </td>
 
-    </tr>
 
+    </tr>
 
  @endforeach
 
-
 </table>
+
 
 </html>

@@ -39,7 +39,7 @@
 
  <h2 style="text-align: center">Les Lots deja Choisit dans le grand titre N-{{$appelcorrespondant->id}}</h2>
  <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('objet.lister',[$appelcorrespondant->id]) }}"> Retour </a>
-<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('lot.creation',[$objetcorrespondant->id]) }}"> Creer nouveau lot </a>
+<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('lot.creation',[$objetcorrespondant->id]) }}"><i class="fas fa-plus"></i> Creer nouveau lot </a>
 
 
 <br>

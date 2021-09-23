@@ -26,7 +26,7 @@
     swal({
         position: 'top-end',
       icon: 'success',
-      title: ' Lot supprimé avec success',
+      title: 'Ligne de credit supprimée avec success',
       showConfirmButton: false,
       timer: 1500,
          });
@@ -38,7 +38,7 @@
  @if (isset($caution))
 
  <h2 style="text-align: center">Ligne de credit de la caution N-{{$caution->id}}</h2>
- <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="#"> Retour </a>
+ <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('caution.retour',[$lot->id]) }}"> Retour </a>
 <a style="margin-left: 900px;" class="btn btn-success" href="{{route('ligne.creer',[$caution->id,$lot->id])}}"> Ajouter une ligne de credit </a>
 
 
@@ -52,7 +52,7 @@
 <table class="table table-bordered table-hover">
 
     <tr>
-        <th style="width: 50px;">Garant</th>
+        <th style="width: 50px;">Numero de la ligne</th>
         <th style="width: 50px;">Montant</th>
         <th style="width: 50px;">Lot Choisit</th>
         <th width="50px">Action</th>
@@ -60,13 +60,12 @@
 
     @foreach ($ligne as $key => $value)
     <tr>
-        <td>Ligne N {{ $value->id }}</td>
-        <td>Montant {{ $value->Montant_Ligne }}</td>
+        <td>Ligne N-{{ $value->id }} / {{$caution->id}} / {{$caution->lot->lot}} / {{$caution->lot->objet->appel->dossier->NomDossier}}</td>
+        <td> {{ $value->Montant_Ligne }} FCFA</td>
         <td>Lot N {{ $value->lot }}</td>
         <td>
-            <form name="form" action="#" method="POST">
+            <form name="form" action="{{ route('ligne.destroy',[$value->id]) }}" method="POST">
 
-                <a class="btn btn-info" href="#">Cautions</a>
                 <a class="btn btn-primary" href="#">Modifier</a>
 
                 @csrf
@@ -110,9 +109,9 @@
 
          swal({
 
-             title: `Etes vous sur de vouloir supprimer ce lot?`,
+             title: `Etes vous sur de vouloir supprimer cette ligne de credit?`,
 
-             text: "Si jamais vous confirmez vous le perdrer pour toujours",
+             text: "Si jamais vous confirmez vous la perdrer pour toujours",
 
              icon: "warning",
 

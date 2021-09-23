@@ -12,11 +12,37 @@ class objetController extends Controller
 {
     public function creerobjet($id)
     {
+
+        if( session()->has('message'))
+        {
+            $refus="ok";
+           return view('Objet/objetcreate',compact('id','refus'));
+        }
+
+        else
+        {
         return view('Objet.objetcreate',compact('id'));
+        }
+
     }
 
     public function store(request $request)
     {
+
+
+        if($test=objet::where('titre',$request->titre)->first())
+        {
+            $refus="refus";
+            //dd($refus);
+        }
+        else{
+            $accord="accord";
+            //dd($accord);
+        }
+
+        if(isset($accord))
+        {
+
         $request->validate([
 
             'titre'=>'required','appel_id'=>'required'
@@ -34,6 +60,14 @@ class objetController extends Controller
       $message='ok';
       //dd($listeobjet);
       return view('Objet/listeobjet',compact('listeobjet','data','dossier','message'));
+
+    }
+
+    if(isset($refus))
+    {
+    return redirect()->route('objet.creation',[$request->appel_id])->with('message','impossible');
+    }
+
     }
 
     public function destroy($id)
@@ -61,10 +95,24 @@ class objetController extends Controller
     $objet= objet::where('id',$id)->first();
     $lot= $objet->lot;
     //dd($objet);
+
+    if( session()->has('message'))
+    {
+       //dd(session()->get('message'));
+       $ok=session()->get('message');
+    }
+
     $objetcorrespondant=objet::where('id',$id)->first();
     $appelcorrespondant=$objetcorrespondant->appel;
+    if(isset($ok))
+    {
     $suppression='ok';
     return view('Lot.lotcreer',compact('lot','appelcorrespondant','objetcorrespondant','suppression'));
+    }
+    else
+    {
+    return view('Lot.lotcreer',compact('lot','appelcorrespondant','objetcorrespondant'));
+    }
     }
 
     public function listeobjet()

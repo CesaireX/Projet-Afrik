@@ -6,7 +6,7 @@
 
 
 
-@if (isset($validation))
+@if (isset($validate))
 
 <script>
 
@@ -25,7 +25,7 @@ swal({
     @endif
 
 
-@if ($message = Session::get('message'))
+@if (isset($supprimer))
 
 <script>
 
@@ -40,6 +40,24 @@ swal({
  </script>
 
     @endif
+
+
+ @if (isset($modifier))
+
+<script>
+
+swal({
+    position: 'top-end',
+  icon: 'success',
+  title: 'Institution financiére modifiée avec success',
+  showConfirmButton: false,
+  timer: 1500,
+     });
+
+ </script>
+
+    @endif
+
 
 
 <h2 style="text-align: center">Liste de tout les Garants de notre Entreprise</h2>
@@ -64,7 +82,7 @@ swal({
         <td>{{ $garants->garant }}</td>
         <td> <form name="form" action="{{ route('garant.destroy',$garants->id) }}" method="POST">
 
-            <a class="btn btn-primary" href="#">Modifier</a>
+            <a class="btn btn-primary" href="{{ route('garant.edit',$garants->id) }}">Modifier</a>
 
             @csrf
 
@@ -75,7 +93,10 @@ swal({
         </form> </td>
     </tr>
     @endforeach
+
 </table>
+{{ $garant->links('pagination::simple-tailwind') }}
+
 @else
 <table class="table table-bordered">
     <tr>

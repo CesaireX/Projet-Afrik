@@ -1,8 +1,6 @@
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <h3 style="text-align: center; margin-top: 50px;"><U> ETABLISSEMENT DU BILAN GENERAL DES CAUTIONS DE SOUMISSION</U></h3><br><br>
-
 
 @php
 $montant=0;
@@ -20,32 +18,28 @@ $montant=$montant+$cautions->Montant
 <h3 style="text-align: right; margin-top: -43px;">Date : {{$date}} </h3>
 <h3 style="text-align: left;">  Nombre total des cautions: <U><i> {{$nombre}}</i></U> @if($nombre>1)cautions @else caution @endif </h3>
 
-<table border="1px" style="width: 100%;">
+<table border="1px" cellspacing="0" style="width: 100%;">
 
 <tr>
 
-<th style="text-align: center; background-color: white;">PROVENANCE</th>
-<th style="text-align: center; background-color: white;">DETAILS CAUTIONS</th>
+<th style="text-align: center; background-color: white; ">PROVENANCE</th>
+<th style="text-align: center; background-color: white; ">DETAILS CAUTIONS</th>
 </tr>
 
 
+
 <tr>
+
 
 <td>
 @foreach ($caution as $cautions)
-
 {{$cautions->lot->objet->appel->dossier->NomDossier}} -- Appel N-{{$cautions->lot->objet->appel->id}} -- {{$cautions->lot->objet->titre}} -- Lot N{{-$cautions->lot->lot}}
 <br><br>
-
 @endforeach
-
 </td>
 
 <td>
-
-@foreach ($caution as $cautions)
-
-
+ @foreach ($caution as $cautions)
 {{$cautions->lot->objet->titre}} -- Lot N-{{$cautions->lot->lot}} -- {{$cautions->Montant}} FCFA --{{$cautions->Type_Caution}} -- {{$cautions->Garant}} --  @if($cautions->Status==NULL)
 <p style="color: rgb(3, 145, 155); display: inline;">caution en cours</p>
 @else
@@ -60,13 +54,12 @@ $montant=$montant+$cautions->Montant
 
 @endif
 <br><br>
+
 @endforeach
 <br>
 </td>
 
 </tr>
-
-
 
 </table>
 

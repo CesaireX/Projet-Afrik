@@ -34,16 +34,16 @@
 
     <table>
 
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DOSSIER:</h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $dossier->NomDossier }}     </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> APPEL              :              </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $appel->id }}      </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> GRAND TITRE              :             </h3></td><td> <h5 style="display: inline;  margin-left: 5px;">      {{ $objet->titre }}       </h5></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> LOT    :             </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $lot->lot }}       </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> CAUTION :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Type_Caution }}         </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> GARANT       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Garant }}         </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> MONTANT CAUTION       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Montant }} FCFA        </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DATE DE SOUMISSION    :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Date_Soumission }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> DOSSIER:</h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $dossier->NomDossier }}     </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> APPEL              :              </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $appel->id }}      </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> GRAND TITRE              :             </h3></td><td> <h5 style="display: inline;  margin-left: 5px;">      {{ $objet->titre }}       </h5></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> LOT    :             </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $lot->lot }}       </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> CAUTION :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Type_Caution }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> GARANT       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Garant }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> MONTANT CAUTION       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Montant }} FCFA        </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> DATE DE SOUMISSION    :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Date_Soumission }}         </h4></td></tr>
     @if($caution->Status==NULL && $caution->Duree_Validite!=0)
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DATE EXPIRATION        :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $date1 }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 50;"> DATE EXPIRATION        :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $date1 }}         </h4></td></tr>
     @else
 
     @endif
@@ -77,7 +77,7 @@
 
     <a style="margin-top: -9px;margin-left: 450px;" href="{{route('caution.lever',[$jours,$date1,$caution->id]) }}" class="btn btn-success"> Lever la main sur cette caution </a>
 
-    <button style="margin-top: -9px" id="afficher" class="btn btn-info" ><i class="fa fa-plus"> PROLONGEMENT </i></button>
+    <button style="margin-top: -9px" id="afficher" class="btn btn-info" ><i class="fa fa-plus"> PROLONGEMENT/REDUCTION </i></button>
 
 <script type="text/javascript">
 
@@ -98,11 +98,11 @@
 
        @csrf
 
-       <div class="col-md-12">
+       <div class="col-md-12" style="margin-left: 50px;">
          <div class="card">
            <div style="margin-left: 40px;" class="card-header">
 
-           <U> <h3 class="card-title"> Prolongement de la caution N-{{$caution->id}}/{{ $dossier->NomDossier }}/{{ $appel->id }}/{{ $objet->id }}.{{ $lot->lot }} </h3> </U>
+           <U> <h3 style="margin-left: -40px;" class="card-title"> Prolonger/Reduire de la caution N-{{$caution->id}}/{{ $dossier->NomDossier }}/{{ $appel->id }}/{{ $objet->id }}.{{ $lot->lot }} </h3> </U>
 
              <div class="card-tools">
 
@@ -115,7 +115,7 @@
              <table border="1" cellspacing="5" cellpadding="30">
                <thead>
                  <tr>
-                   <th style="width: 50px;"> Nombre de jours a prolonger</th>
+                   <th style="width: 50px;"> Nombre de jours a prolonger/reduire(-)</th>
                    <th style="width: 50px;"> executer </th>
                  </tr>
                </thead>

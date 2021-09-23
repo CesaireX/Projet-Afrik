@@ -20,7 +20,7 @@ $montant=$montant+$cautions->Montant
 <h3 style="text-align: right; margin-top: -43px;">Date : {{$date}} </h3>
 <h3 style="text-align: left;">  Nombre total des cautions: <U><i> {{$nombre}}</i></U> @if($nombre>1)cautions @else caution @endif </h3>
 
-<table border="1px" style="width: 100%;">
+<table border="1px" style="width: 100%;" cellspacing="0">
 
 <tr>
 

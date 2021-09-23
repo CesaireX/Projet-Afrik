@@ -8,6 +8,7 @@ use App\Models\dossier;
 use App\Models\objet;
 use App\Models\lot;
 use App\Models\caution;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 
@@ -65,10 +66,24 @@ class appelController extends Controller
     $appel= appel::where('id',$id)->first();
     $objet= $appel->objet;
     //dd($objet);
+
+    if( session()->has('message'))
+    {
+       //dd(session()->get('message'));
+       $ok=session()->get('message');
+    }
+
     $appelcorrespondant=appel::where('id',$id)->first();
     $dossiercorrespondant=$appelcorrespondant->dossier;
+    if(isset($ok))
+    {
     $suppression='ok';
     return view('Objet.objetcreer',compact('objet','appelcorrespondant','dossiercorrespondant','suppression'));
+    }
+    else
+    {
+    return view('Objet.objetcreer',compact('objet','appelcorrespondant','dossiercorrespondant'));
+    }
 }
      /**
      * Show the form for creating a new resource.
@@ -143,5 +158,19 @@ class appelController extends Controller
             $modifier='ok';
             //dd($listeappel);
             return view('Appel/appelafficher',compact('listeappel','data','modifier'));
+    }
+
+    public function appel_update($id,$secondaire)
+    {
+        $request=new request();
+        //dd($_GET['status']);
+        $request=DB::table('appels')->Where('id',$id)
+        ->update(['status' => $_GET['status'] ]);
+        $appel= appel::where('dossier_id',$secondaire)->first();
+        //dd($appel);
+        $data=$appel->dossier;
+        $listeappel=$data->appel;
+        $actualiser='ok';
+        return view('Appel/appelafficher',compact('listeappel','data','actualiser'));
     }
 }

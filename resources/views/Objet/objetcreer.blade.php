@@ -42,7 +42,7 @@
 <h2 style="text-align: center">Dossier {{$dossiercorrespondant->NomDossier}} / Appel N-{{$appelcorrespondant->id}}</h2>
 <h2 style="text-align: center">Les Grands titres deja Choisit</h2>
 <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('dossier.show',[$dossiercorrespondant->id]) }}"> Retour </a>
-<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('objet.creation',[$appelcorrespondant->id]) }}"> Creer nouvel objet </a>
+<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('objet.creation',[$appelcorrespondant->id]) }}"><i class="fas fa-plus"></i> Creer nouvel objet </a>
 <br>
 
 @if (!$objet->isEmpty())
@@ -54,7 +54,7 @@
     </tr>
     @foreach ($objet as $key => $value)
     <tr>
-        <td> {{ $value->id}}/{{$appelcorrespondant->id}}</td>
+        <td> {{ $value->id}}/{{$appelcorrespondant->id}}/{{ $value->appel->dossier->NomDossier}}</td>
         <td>{{ $value->titre }}</td>
         <td>
             <form name="form" action="{{route('objet.destroy',[$value->id])}}" method="POST">

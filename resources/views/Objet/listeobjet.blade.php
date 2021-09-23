@@ -41,7 +41,7 @@
 <h2 style="text-align: center">Dossier {{$dossier->NomDossier}} / Appel N*{{$data->id}} </h2>
 <h2 style="text-align: center">Les Grands titres deja Choisit</h2>
 <a style="margin-left: 800px;margin-bottom: -40px;" class="btn btn-primary" href="{{ route('dossier.show',[$dossier->id]) }}"> Retour </a>
-<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('objet.creation',[$data->id]) }}"> Creer nouvel Objet </a>
+<a style="margin-left: 900px;" class="btn btn-success" href="{{ route('objet.creation',[$data->id]) }}"><i class="fas fa-plus"></i> Creer nouvel Objet </a>
 <br>
 <table class="table table-bordered table-hover">
     <tr>
@@ -51,7 +51,7 @@
     </tr>
     @foreach ($listeobjet as $key => $value)
     <tr>
-        <td>{{ $value->id }}/{{ $data->id}}/{{ $data->Date_Publication }}</td>
+        <td>{{ $value->id }}/{{ $data->id}}/{{ $value->appel->dossier->NomDossier}}</td>
         <td>{{ $value->titre }}</td>
         <td>
             <form name="form" action="{{route('objet.destroy',[$value->id])}}" method="POST">

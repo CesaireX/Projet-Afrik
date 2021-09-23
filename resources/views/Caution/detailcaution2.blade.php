@@ -34,15 +34,15 @@
 
     <table>
 
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DOSSIER:</h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $dossier->NomDossier }}     </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> APPEL              :              </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $appel->id }}      </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> GRAND TITRE              :             </h3></td><td> <h5 style="display: inline;  margin-left: 5px;">      {{ $objet->titre }}       </h5></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> LOT    :             </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $lot->lot }}       </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> CAUTION :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Type_Caution }}         </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> GARANT       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Garant }}         </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> MONTANT CAUTION       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Montant }} FCFA        </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DATE DE SOUMISSION    :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Date_Soumission }}         </h4></td></tr>
-    <tr><td><h3 style="display: inline;text-align: center;margin-left: 420px;"> DATE EXPIRATION        :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $date1 }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> DOSSIER:</h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $dossier->NomDossier }}     </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> APPEL              :              </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $appel->id }}      </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> GRAND TITRE              :             </h3></td><td> <h5 style="display: inline;  margin-left: 5px;">      {{ $objet->titre }}       </h5></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> LOT    :             </h3></td><td><h4 style="display: inline;  margin-left: 5px;">      {{ $lot->lot }}       </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> CAUTION :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Type_Caution }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> GARANT       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Garant }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> MONTANT CAUTION       :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Montant }} FCFA        </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> DATE DE SOUMISSION    :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $caution->Date_Soumission }}         </h4></td></tr>
+    <tr><td><h3 style="display: inline;text-align: center;margin-left: 320px;"> DATE EXPIRATION        :             </h3></td><td> <h4 style="display: inline;  margin-left: 5px;">      {{ $date1 }}         </h4></td></tr>
 
     </table>
 

@@ -13,16 +13,44 @@ class lotController extends Controller
 {
     public function creerlot($id)
     {
+        if( session()->has('message'))
+        {
+            $refus="ok";
+           return view('Lot/lotcreate',compact('id','refus'));
+        }
+        else
+        {
         return view('Lot/lotcreate',compact('id'));
+        }
     }
 
     public function store(request $request)
     {
+        //dd($request->lot);
+        $verif=($request->objet_id);
+
+        if($test=lot::where('lot',$request->lot)->where(function ($test2) use ($verif){
+         $test2->where('objet_id',$verif);
+        })->first() )
+        {
+            $refus="refus";
+            //dd($refus);
+        }
+        else{
+            $accord="accord";
+            //dd($accord);
+        }
+
+
+
+        if(isset($accord))
+        {
         $request->validate([
         'lot'=>'required'
         ]);
 
         lot::create($request->all());
+
 
         $id= $request->objet_id;
         $lot= lot::where('objet_id',$id)->first();
@@ -32,6 +60,13 @@ class lotController extends Controller
         $message='ok';
         //dd($listeappel);
         return view('Lot/listelot',compact('listelot','data','message','appel'));
+       }
+
+       if(isset($refus))
+       {
+         return redirect()->route('lot.creation',[$request->objet_id])->with('message','impossible');
+       }
+
     }
 
     public function show($id)
@@ -52,13 +87,26 @@ class lotController extends Controller
         $lot= lot::where('id',$id)->first();
         $caution= $lot->caution;
         //dd($caution);
+
+        if( session()->has('message'))
+        {
+           //dd(session()->get('message'));
+           $ok=session()->get('message');
+        }
+
         $lotcorrespondant=lot::where('id',$id)->first();
         $objetcorrespondant=$lotcorrespondant->objet;
         $date=$lot->objet->appel->Date_Publication;
         $duree=$lot->objet->appel->Duree_Validite;
         $ligne=ligne::all();
+        if(isset($ok))
+        {
         $suppression='ok';
         return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','suppression','duree','ligne'));
+        }
+        else{
+        return view('Caution.cautioncreer',compact('caution','lotcorrespondant','objetcorrespondant','date','duree','ligne'));
+        }
     }
 
     public function destroy($id)
