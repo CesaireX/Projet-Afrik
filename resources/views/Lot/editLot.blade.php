@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-header">
 
-          <h2 style="text-align: center" class="card-title">Modifier un lot</h2>
+          <h2 style="text-align: center" class="card-title">Modifier un lot</h2> <a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('objet.show',[$secondaire]) }}"> <i class="fas fa-arrow-circle-left"></i> </a>
 
           <div class="card-tools">
 

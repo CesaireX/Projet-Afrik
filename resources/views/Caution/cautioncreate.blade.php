@@ -74,7 +74,7 @@
       <div class="card">
         <div class="card-header">
 
-          <h2 style="text-align: center" class="card-title">Creer une nouvelle caution -- <p style="color: rgb(168, 168, 168); display: inline;">NB: Duree de validité Appel: <i>{{$duree}} Jours </i></p> </h2>
+          <h2 style="text-align: center" class="card-title">Creer une nouvelle caution -- <p style="color: rgb(168, 168, 168); display: inline;">NB: Duree de validité Appel: <i>{{$duree}} Jours </i></p>  </h2> <a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('caution.retour',[$id]) }}"> <i class="fas fa-arrow-circle-left"></i> </a>
 
           <div class="card-tools">
 

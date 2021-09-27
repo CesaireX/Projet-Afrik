@@ -12,7 +12,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h5 class="card-title"> Modification du dossier {{$dossier->NomDossier}} </h5>
+          <h5 class="card-title"> Modification du dossier {{$dossier->NomDossier}} </h5> <a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('dossier.index') }}"> <i class="fas fa-arrow-circle-left"></i> </a>
 
           <div class="card-tools">
 

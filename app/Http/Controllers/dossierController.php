@@ -194,4 +194,16 @@ class dossierController extends Controller
                 ->with('modifier','valider');
     }
 
+    public function dossier_search()
+    {
+        $recherche=request()->input('recherche');
+        //dd($recherche);
+
+        $dossier=dossier::where('NomDossier','like',"%$recherche%")->paginate(6);
+
+        return view('Dossier.search',compact('dossier'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
+
+    }
+
 }

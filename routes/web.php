@@ -134,3 +134,4 @@ Route::get('/caution_sans_ligne',[cautionController::class,'caution_sans_ligne']
 
 Route::get('/appel_update/{id}/{secondaire}',[appelController::class,'appel_update'])->name('appel.actualiser');
 
+Route::get('/dossier_search',[dossierController::class,'dossier_search'])->name('recherche.dossier');

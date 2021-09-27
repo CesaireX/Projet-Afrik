@@ -17,7 +17,7 @@
       <div class="card">
         <div class="card-header">
 
-          <h2 class="card-title"> Modifier un appel doffre </h2> <p style="color: rgb(184, 184, 184)">NB:Les attributs de cette zone sont tres sensible et il est deconseiller de les modifié</p>
+          <h2 class="card-title"> Modifier un appel doffre </h2> <p style="color: rgb(184, 184, 184)">NB:Les attributs de cette zone sont tres sensible et il est deconseiller de les modifié</p><a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('dossier.show',[$secondaire]) }}"> <i class="fas fa-arrow-circle-left"></i> </a>
 
           <div class="card-tools">
 

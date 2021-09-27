@@ -17,7 +17,7 @@
       <div class="card">
         <div class="card-header">
 
-          <h2 class="card-title"> Ajouter un appel doffre </h2>
+          <h2 class="card-title"> Ajouter un appel doffre <a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('dossier.show',[$id]) }}"> <i class="fas fa-arrow-circle-left"></i> </a> </h2>
 
           <div class="card-tools">
 

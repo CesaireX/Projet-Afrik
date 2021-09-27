@@ -5,76 +5,29 @@
 
 @section('content')
 
-@if ($message = Session::get('success'))
-
-<script>
-
-swal({
-    position: 'top-end',
-  icon: 'success',
-  title: 'Nouveau dossier ajouté avec success',
-  showConfirmButton: false,
-  timer: 1500,
-     });
-
- </script>
-
-    @endif
-
-@if (isset($modifier))
-
-<script>
-
-swal({
-    position: 'top-end',
-  icon: 'success',
-  title: 'Dossier modifié avec success',
-  showConfirmButton: false,
-  timer: 1500,
-     });
-
- </script>
-
-    @endif
-
-
-
-@if ($message = Session::get('delete'))
-
-<script>
-
-swal({
-    position: 'top-end',
-  icon: 'success',
-  title: 'Dossier supprimé avec success',
-  showConfirmButton: false,
-  timer: 1500,
-     });
-
- </script>
-
-@endif
-
 <form action="{{route('recherche.dossier')}}" method="">
-<div style="margin-top: -50px;">
-    <div class="input-group" style="width: 250px;">
-      <input name="recherche" type="search" placeholder="Recherche" aria-label="Search" value="{{ request()->recherche ?? ''}}">
-      <div class="input-group-append">
-        <button type="submit"class="btn btn-info">
-          <i class="fas fa-search"></i>
-        </button>
+    <div style="margin-top: -50px;">
+        <div class="input-group" style="width: 250px;">
+          <input name="recherche" type="search" placeholder="Recherche" aria-label="Search" value="{{ request()->recherche ?? ''}}">
+          <div class="input-group-append">
+            <button type="submit"class="btn btn-info">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</form>
+    </form>
 
 <U><h2 style="text-align: center">TOUT LES DOSSIERS DE NOTRE ENTREPRISE</h2></U>
 <div class="col-lg-12 margin-tb">
 
+    @if(request()->input('recherche'))
+    <h4>{{$dossier->total()}} resultat(s) trouvés pour la recherche de "{{request()->input('recherche') }}"</h4>
+    @endif
     <a style="margin-left: 900px;" class="btn btn-success" href="{{ route('dossier.create') }}"><i class="fas fa-plus"></i> nouveau dossier </a>
 
 </div>
-@if (!$data->isEmpty())
+@if (!$dossier->isEmpty())
 
 <table class="table table-bordered table-hover">
     <tr>
@@ -82,7 +35,7 @@ swal({
         <th>Dossiers</th>
         <th width="340px">Action</th>
     </tr>
-    @foreach ($data as $key => $value)
+    @foreach ($dossier as $key => $value)
     <tr>
         <td>{{ $value->id }}</td>
         <td>{{ $value->NomDossier }}</td>
@@ -96,14 +49,14 @@ swal({
 
                 <input name="_method" type="hidden" value="DELETE">
 
-                <button style="width: 100px;" type="submit" class="btn btn-danger show_confirm" data-toggle="tooltip" title='Delete'>Supprimer</button>
+                <button style="width: 100px;" type="submit" class="btn btn-danger show_confirm" dossier-toggle="tooltip" title='Delete'>Supprimer</button>
 
             </form>
         </td>
     </tr>
     @endforeach
 </table>
-{{ $data->links('pagination::simple-tailwind') }}
+{{ $dossier->links('pagination::simple-tailwind') }}
 
 @else
 <table class="table table-bordered">

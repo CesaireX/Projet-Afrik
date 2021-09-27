@@ -16,7 +16,7 @@
       <div class="card">
         <div class="card-header">
 
-          <h2 class="card-title"> Modifier objet </h2>
+          <h2 class="card-title"> Modifier objet </h2> <a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('objet.lister',[$secondaire]) }}"> <i class="fas fa-arrow-circle-left"></i> </a>
 
           <div class="card-tools">
 

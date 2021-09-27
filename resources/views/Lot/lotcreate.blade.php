@@ -31,7 +31,7 @@
       <div class="card">
         <div class="card-header">
 
-          <h2 style="text-align: center" class="card-title">Creer un nouveau lot</h2>
+          <h2 style="text-align: center" class="card-title">Creer un nouveau lot <a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('objet.show',[$id]) }}"> <i class="fas fa-arrow-circle-left"></i> </a> </h2>
 
           <div class="card-tools">
 

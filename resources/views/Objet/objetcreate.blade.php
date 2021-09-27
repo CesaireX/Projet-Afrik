@@ -30,7 +30,7 @@
       <div class="card">
         <div class="card-header">
 
-          <h2 class="card-title"> Creer un nouvel objet </h2>
+          <h2 class="card-title"> Creer un nouvel objet <a style="margin-left: 950px; margin-top: -30px;" class="btn btn-outline-light" href="{{ route('objet.lister',[$id]) }}"> <i class="fas fa-arrow-circle-left"></i> </a>  </h2>
 
           <div class="card-tools">
 
